@@ -1,0 +1,36 @@
+Textures:
+
+ - must be a power of 2. --- note, the emulator will not care about texture size.
+ - it's possible that scaling will cause problems. I'm only deploying to my device atm.
+ - put in drawable folder, unless you have specialised images.
+ 
+ 
+ Topics:
+  - Textures
+  - Lighting
+  - Camera
+  - Objects
+  - Viewports / Scissors
+  - Timers
+  - Collision Detection
+  - Buffers
+  - Game / Player
+  - Music / Sound Effects
+
+
+Graph paper for the maze design: http://www.garrettbartley.com/2010/09/11/virtual-graph-paper/
+
+
+
+VIDEO CAPTURE:
+ - put a Thread.sleep in the rendering code
+ - open up droidAtScreen.jar (it's in Downloads presently)
+ - connect the device to capture video from
+ - save the images to a directory
+ - if the images are not of format jpg (eg. png), run:
+        >> for f in *png ; do convert -quality 100 $f `basename $f png`jpg; done to convert them
+ - make sure that the images will be in the right order (because of number of digits used to represent < 10 etc.)
+   - one technique:
+        >> find . -name "droidAtScreen-??.png" | while read f; do mv "$f" "a`basename $f`"; done to make all ?? appear before ??
+ - run mencoder to generate the AVI:
+        >> mencoder "mf://*.jpg" -mf fps=10 -o test.avi -ovc lavc -lavcopts vcodec=msmpeg4v2:vbitrate=800

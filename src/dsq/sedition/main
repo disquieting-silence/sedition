@@ -1,0 +1,76 @@
+method main:
+
+ - create the display window using double buffering, RGB values, and a depth buffer
+ - size and position the window
+ - calculate the mirror dimensions with respect to the window dimensions
+ - >> init():
+      - locally initialise the light values
+      - (REM) generate a collision object array
+      - set the light model and enable the lights, using configuration based on the light values
+      - set the background colour (clear to it)
+      - setup the project matrix to be orthogonal
+      - set the initial position and configuration for the car and enemy
+      - set the current view position
+      - view = ORTHO, zoom = 100
+      - enable and setup the lighting for light0
+      - >> initTextures()   -- as you would expect.
+      - enable the lighting
+      - enable the fog and set the fog with a nicest hint
+ - handle display, keyboard, special key, timer, and resize functionality
+ - enable the depth test
+ - >> glutMainLoop() // what does this do?
+
+ EXIT
+
+method drawCar (Car):
+ - setup positions of the car headlights with respect to the origin
+ - PUSH:
+   - get the car material for the side
+   - rotate and position the car (translation to position then rotation based on direction)
+   - if the headlights are on
+     - enable light1 and light2
+     - PUSH:
+       if in dashboard view, rotate 90 on Y
+       else rotate -90 on Y
+       translate 10 on Z
+       if the car is not the enemy car then activate the headlights
+       translate -10 on Z
+       if the car is no the enemy car then activate the headlights
+     - POP:
+   - else if no headlights, disable light1 and light2
+   - if showLighting then enable lighting, else disable it
+   - if showAxes, draw two cubes scaled in X and Y axes respectively (DEBUGGING)
+   - if not in dashboard view or is the enemy then enable the car material, and draw the car.
+ - POP:
+
+display:
+ - clear the colour and depth buffers
+ - >> getCarView(viewMode)
+ - if not in dashboard, draw scene
+ - else, getWindscreen then draw, getMirror then draw
+ - disable lighting and display HUD
+ - if showLighting, enable it
+ - swap buffers
+
+drawScene:
+ - set the color
+ - enable normalising, material
+ - draw the buildings (bind and get material, translate)
+ - disable the normalising, material
+ - same process for cars, floor, boat
+
+timer:
+ - update the bearing based on turn-rate and steering direction (normalise angle)
+ - adjust speed based on acceleration
+ - adjust speed to handle bouncing
+ - cap speeds
+ - drive car with speed, redisplay, and come back in 30 milliseconds
+
+driveCar(thrust):
+ - calculate new position of car based on thrust and bearing
+ - approximate width and height of car based on bearing for collisions
+ - for all collisions objects, detect bouncing and blocking
+
+reshape(w, h):
+ - resize window, and recalculate mirror size
+ - redisplay

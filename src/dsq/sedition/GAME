@@ -1,0 +1,44 @@
+SEDITION
+
+Sedition is a 1-player game based on testing the user's memory and response skills. Essentially, it all boils down
+to navigating a maze within a time limit. Players, (hopefully) can't travel through walls, and will have some amount
+of time before they need to reach some checkpoint.
+
+The mazes will (at first) only be comprised of walls. A player trying to run through a wall will come to a halt.
+
+
+The UI:
+
+The player can control two aspects of their runner: direction and speed. It is also possible for speed to go in the
+opposite direction to the way that the player is facing. The controls are a left key, a right key, and a plus key, and
+a minus key. (Better, smoother controls may be possible later). A player can turn while they are running, but not as quickly
+as if they were stopped. These controls are located at the bottom of the screen. The game is only played in portrait mode.
+
+Experience:
+
+When a game of Sedition is started, the player is given a top-view of the maze they are about to enter. In earlier levels,
+they may also be given their starting location. After a period of time, this view will dissolve and the camera will pull away.
+Once the view is no longer visible and fog has covered the entire screen, it's time for the user to navigate the maze.
+The game will not start until they hit the Play button (if I can get that to work). Once they hit play, they will be
+transported to a ground-view and will be shown a timer (located next to the controls). It's time to start running.
+
+
+Game Story:
+
+It's just another one of those days. Your expectations are low. The birds are crooning in a way that wouldn't exactly
+compete in local karaoke competitions, the construction sounds resound unabated, and the impending doom brought about by
+the drudgery of another work day begins to overtake you. If only you could escape. Without warning, you are transported to
+another world into a life and death contest features mazes of escalating difficulties for some reason (though the
+time travel and killer robot driving instructor are strangely absent). And what is it about these mazes? They all seem
+to be oddly familiar, as if you have seen them before, but from a different angle. If only you could remember ...
+because just quietly, that T minus x countdown in the background isn't exactly thrilling or filling you with confidence.
+It's time to start running, kid. The rest of the world is at stake, or at the very least, your 1337 gaming cred. They
+are interchangeable after all.
+
+Controls:
+
+Sedition is entirely operated by touch. This is intentional and means that any glitches in responsiveness can be blamed
+on your individual device and not on Sedition, which is of course faultless. Press on the left and right arrow keys to
+turn your player, and press the + and - keys to speed up and slow down. Caution, if implemented (which it probably won't be),
+your player can get tired from running all the time. Particularly if you just keep sending him in circles. Some soundbites
+would be good for that.
