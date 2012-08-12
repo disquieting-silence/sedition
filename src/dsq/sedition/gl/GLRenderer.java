@@ -18,6 +18,7 @@ import java.util.List;
 public class GLRenderer implements GLSurfaceView.Renderer {
 
     public static final int DASHBOARD_HEIGHT = 100;
+    public static final int TIMER_HEIGHT = 50;
 
     private final Context context;
     private final Game game;
@@ -27,6 +28,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     
     private Viewport mainView;
     private Viewport dashboardView;
+    private Viewport timerView;
 
     private Light sun;
     private Light headlight;
@@ -39,6 +41,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(final GL10 g) {
         dashboardView.setBackground(g, 0.75f, 0.8f, 1.0f, 1.0f);
+        timerView.setBackground(g, 0.1f, 0.1f, 0.1f, 1.0f);
         mainView.setBackground(g, 0, 0, 0, 1.0f);
         mainView.setActive(g);
 
@@ -107,8 +110,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         g.glMatrixMode(GL10.GL_MODELVIEW);
         g.glLoadIdentity();
 
-        final int mainHeight = height - DASHBOARD_HEIGHT;
-        mainView = new DefaultViewport(0, 0, DASHBOARD_HEIGHT, width, mainHeight);
-        dashboardView = new DefaultViewport(0, mainHeight, 0, width, DASHBOARD_HEIGHT);
+        final int mainHeight = height - DASHBOARD_HEIGHT - TIMER_HEIGHT;
+        mainView = new DefaultViewport(0, DASHBOARD_HEIGHT, width, mainHeight);
+        dashboardView = new DefaultViewport(0, 0, width, DASHBOARD_HEIGHT);
+        timerView = new DefaultViewport(0, height - TIMER_HEIGHT, width, TIMER_HEIGHT);
     }
 }

@@ -1,5 +1,5 @@
 /bin
-proguard.cfg
+proguard*
 local.properties
 /out
 /gen
