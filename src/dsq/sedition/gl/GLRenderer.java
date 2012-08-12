@@ -7,9 +7,11 @@ import dsq.sedition.core.Game;
 import dsq.sedition.light.*;
 import dsq.sedition.scene.DefaultViewport;
 import dsq.sedition.scene.Viewport;
+import dsq.sedition.sprite.CountdownSprite;
 import dsq.sedition.sprite.DefaultFloor;
 import dsq.sedition.sprite.Floor;
 import dsq.sedition.sprite.Sprite;
+import dsq.sedition.timer.Timer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -25,6 +27,19 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     
     // FIX 11/06/12 Should I move floor into level ?
     private Floor floor;
+    private final Timer clock = new Timer() {
+
+        @Override
+        public int getMinutes() {
+            return 17;
+        }
+
+        @Override
+        public int getSeconds() {
+            return 8;
+        }
+    };
+    private Sprite timer = new CountdownSprite(clock);
     
     private Viewport mainView;
     private Viewport dashboardView;
@@ -42,6 +57,11 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(final GL10 g) {
         dashboardView.setBackground(g, 0.75f, 0.8f, 1.0f, 1.0f);
         timerView.setBackground(g, 0.1f, 0.1f, 0.1f, 1.0f);
+        timerView.setActive(g);
+        g.glPushMatrix();
+        g.glLoadIdentity();
+        timer.draw(g);
+        g.glPopMatrix();
         mainView.setBackground(g, 0, 0, 0, 1.0f);
         mainView.setActive(g);
 
@@ -74,6 +94,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         // FIX 2/06/12 Make floor a sprite?
         floor.loadGLTexture(g, this.context);
+        timer.loadGLTexture(g, this.context);
         
         // FIX 11/06/12 This is a bit clunky
         final List<Sprite> allSprites = game.allSprites();
