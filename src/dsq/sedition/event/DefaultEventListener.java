@@ -37,4 +37,9 @@ public class DefaultEventListener implements EventListener {
     public void init() {
         sounds.init();
     }
+
+    @Override
+    public void timeExpired() {
+        // DO SOMETHING.
+    }
 }

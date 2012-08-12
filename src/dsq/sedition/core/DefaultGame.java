@@ -6,6 +6,9 @@ import dsq.sedition.scene.GameCamera;
 import dsq.sedition.scene.Camera;
 import dsq.sedition.sprite.Sprite;
 import dsq.sedition.scene.GlimpseCamera;
+import dsq.sedition.timer.DefaultMutableTimer;
+import dsq.sedition.timer.MutableTimer;
+import dsq.sedition.timer.Timer;
 
 import java.util.List;
 
@@ -17,12 +20,14 @@ public class DefaultGame implements Game {
     
     private ViewState viewState = ViewState.TOP;
     private final Level level;
+    private final MutableTimer clock;
 
     // FIX 9/06/12 Clean this up.
     public DefaultGame(final Level level, final EventListener events) {
         this.level = level;
         player = new DefaultPlayer(level.start(), 0f, events);
         camera = new GameCamera(player);
+        clock = new DefaultMutableTimer(events);
     }
 
     @Override
@@ -66,6 +71,11 @@ public class DefaultGame implements Game {
     }
 
     @Override
+    public Timer timer() {
+        return clock;
+    }
+
+    @Override
     public List<Sprite> allSprites() {
         return level.allSprites();
     }
@@ -73,15 +83,18 @@ public class DefaultGame implements Game {
     @Override
     public void update() {
         // FIX 11/06/12 A better approach for this dual state would be better. Dare I say fold?
+        // FIX 12/08/12 This switches on orientation change. Bug.
         if (viewState == ViewState.TOP) {
             final float newScale = camera.getScale() - ZOOM_OUT_RATE;
             camera.setScale(newScale);
             if (newScale < 0.4) {
                 camera.transition();
+                clock.start(15000L);
                 viewState = ViewState.PLAYER;
             }
         } else {
             final List<Collidable> obstacles = level.obstacles(viewState);
+            clock.update();
             player.update(obstacles);
         }
     }

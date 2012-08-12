@@ -10,4 +10,6 @@ public interface EventListener {
     void moving(Player player);
 
     void init();
+
+    void timeExpired();
 }

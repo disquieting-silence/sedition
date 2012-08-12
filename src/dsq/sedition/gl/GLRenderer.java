@@ -11,6 +11,8 @@ import dsq.sedition.sprite.CountdownSprite;
 import dsq.sedition.sprite.DefaultFloor;
 import dsq.sedition.sprite.Floor;
 import dsq.sedition.sprite.Sprite;
+import dsq.sedition.timer.DefaultMutableTimer;
+import dsq.sedition.timer.MutableTimer;
 import dsq.sedition.timer.Timer;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -27,19 +29,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     
     // FIX 11/06/12 Should I move floor into level ?
     private Floor floor;
-    private final Timer clock = new Timer() {
-
-        @Override
-        public int getMinutes() {
-            return 17;
-        }
-
-        @Override
-        public int getSeconds() {
-            return 8;
-        }
-    };
-    private Sprite timer = new CountdownSprite(clock);
+    private Sprite timer;
     
     private Viewport mainView;
     private Viewport dashboardView;
@@ -91,6 +81,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         sun = new Sun(g, GL10.GL_LIGHT0);
         headlight = new Headlight(g, GL10.GL_LIGHT1, new LightPosition(0, 0, 0, LightType.DIRECTIONAL), new LightDirection(1, -0.2f, 1));
         floor = new DefaultFloor();
+        timer = new CountdownSprite(game.timer());
 
         // FIX 2/06/12 Make floor a sprite?
         floor.loadGLTexture(g, this.context);
