@@ -25,7 +25,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     // FIX 11/06/12 Should I move floor into level ?
     private Floor floor;
     
-    private DefaultViewport mainView;
+    private Viewport mainView;
     private Viewport dashboardView;
 
     private Light sun;

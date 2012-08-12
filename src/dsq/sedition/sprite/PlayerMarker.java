@@ -27,7 +27,7 @@ public class PlayerMarker implements Sprite {
         float x4 = pos.x + SIZE/2 + PAD;
         
         final Material material = new AmbDiffMaterial(new DefaultColour(1.0f, 0.0f, 0.0f, 1.0f));
-        final DefaultColour colour = new DefaultColour(1.0f, 0.0f, 0.0f, 1);
+        final Colour colour = new DefaultColour(1.0f, 0.0f, 0.0f, 1);
         delegates[0] = new DefaultQuad(c(x1, z1), c(x2, z1), c(x4, z2), c(x3, z2), material, colour);
         delegates[1] = new DefaultQuad(c(x1, z2), c(x2, z2), c(x4, z1), c(x3, z1), material, colour);
     }
