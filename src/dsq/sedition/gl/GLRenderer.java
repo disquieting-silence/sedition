@@ -45,13 +45,17 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(final GL10 g) {
+        drawDashboard(g);
+        drawTimer(g);
+        drawMain(g);
+        game.update();
+    }
+
+    private void drawDashboard(final GL10 g) {
         dashboardView.setBackground(g, 0.75f, 0.8f, 1.0f, 1.0f);
-        timerView.setBackground(g, 0.1f, 0.1f, 0.1f, 1.0f);
-        timerView.setActive(g);
-        g.glPushMatrix();
-        g.glLoadIdentity();
-        timer.draw(g);
-        g.glPopMatrix();
+    }
+
+    private void drawMain(final GL10 g) {
         mainView.setBackground(g, 0, 0, 0, 1.0f);
         mainView.setActive(g);
 
@@ -64,7 +68,15 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         game.camera().position(g);
         headlight.display(g);
         drawScene(g);
-        game.update();
+    }
+
+    private void drawTimer(final GL10 g) {
+        timerView.setBackground(g, 0.1f, 0.1f, 0.1f, 1.0f);
+        timerView.setActive(g);
+        g.glPushMatrix();
+        g.glLoadIdentity();
+        timer.draw(g);
+        g.glPopMatrix();
     }
 
     private void drawScene(final GL10 g) {
