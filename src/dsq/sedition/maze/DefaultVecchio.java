@@ -4,50 +4,150 @@ import dsq.sedition.util.None;
 import dsq.sedition.util.Option;
 import dsq.sedition.util.Some;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+// FIX 15/08/12 Split me.
 public class DefaultVecchio implements Vecchio {
     
     private final int width;
-    // FIX 15/08/12 Probably not needed
-    private final int height;
-    private final Map<Integer, Spot> data = new HashMap<Integer, Spot>();
+    private final Map<Integer, Spot> horizontal = new HashMap<Integer, Spot>();
+    private final Map<Integer, Spot> vertical = new HashMap<Integer, Spot>();
 
-    public DefaultVecchio(final int width, final int height) {
+    public DefaultVecchio(final int width) {
         this.width = width;
-        this.height = height;
+    }
+    
+    @Override
+    public Option<Spot> getV(final int x, final int z) {
+        return get(x, z, vertical);
     }
 
     @Override
-    public Option<Spot> get(final int x, final int z) {
-        final int id = id(x, z);
-        final Spot spot = data.get(id);
-        return spot == null ? new None<Spot>() : new Some<Spot>(spot);
+    public Option<Spot> getH(final int x, final int z) {
+        return get(x, z, horizontal);
+    }
+    
+    @Override
+    public void addV(final Spot spot) {
+        add(spot, vertical);
+    }
+
+    @Override
+    public void addV(final int x, final int z) {
+        add(x, z, vertical);
+    }
+
+    @Override
+    public void addH(final Spot spot) {
+        add(spot, horizontal);
+    }
+
+    @Override
+    public void addH(final int x, final int z) {
+        add(x, z, horizontal);
+    }
+
+    @Override
+    public boolean containsV(final int x, final int z) {
+        return contains(x, z, vertical);
+    }
+
+    @Override
+    public boolean containsH(final int x, final int z) {
+        return contains(x, z, horizontal);
+    }
+
+    @Override
+    public Option<Spot> removeV(final int x, final int z) {
+        return remove(x, z, vertical);
+    }
+
+    @Override
+    public Option<Spot> removeV(final Spot spot) {
+        return remove(spot.x, spot.z, vertical);
+    }
+
+    @Override
+    public Option<Spot> removeH(final int x, final int z) {
+        return remove(x, z, horizontal);
+    }
+
+    @Override
+    public Option<Spot> removeH(final Spot spot) {
+        return remove(spot.x, spot.z, horizontal);
+    }
+
+    @Override
+    public List<Spot> vWalls() {
+        final List<Spot> r = new ArrayList<Spot>(vertical.values());
+        Collections.sort(r, new Comparator<Spot>() {
+            @Override
+            public int compare(final Spot a, final Spot b) {
+                return a.x == b.x ? a.z - b.z : a.x - b.x;
+            }
+        });
+        return r;
+    }
+
+    @Override
+    public List<Spot> hWalls() {
+        final List<Spot> r = new ArrayList<Spot>(horizontal.values());
+        Collections.sort(r, new Comparator<Spot>() {
+            @Override
+            public int compare(final Spot a, final Spot b) {
+                return a.z == b.z ? a.x - b.x : a.z - b.z;
+            }
+        });
+        return r;
+    }
+
+    @Override
+    public Vecchio copy() {
+        final Vecchio r = new DefaultVecchio(width);
+        for (Integer x : horizontal.keySet()) {
+            r.addH(horizontal.get(x));
+        }
+        for (Integer x : vertical.keySet()) {
+            r.addV(vertical.get(x));
+        }
+        return r;
     }
 
     private int id(final int x, final int z) {
         return Spots.hash(new Spot(x, z), width);
     }
-    
+
     private int id(final Spot spot) {
         return Spots.hash(spot, width);
     }
 
-    @Override
-    public void add(final Spot spot) {
+    public void add(final Spot spot, final Map<Integer, Spot> map) {
         final int id = id(spot);
-        data.put(id, spot);
+        map.put(id, spot);
     }
 
-    @Override
-    public void add(final int x, final int z) {
-        add(new Spot(x, z));
+    public void add(final int x, final int z, final Map<Integer, Spot> map) {
+        add(new Spot(x, z), map);
     }
 
-    @Override
-    public boolean contains(final int x, final int z) {
+    private Option<Spot> remove(final int x, final int z, final Map<Integer, Spot> map) {
         final int id = id(x, z);
-        return data.containsKey(id);
+        final Spot r = map.remove(id);
+        return opt(r);
+    }
+
+    public boolean contains(final int x, final int z, final Map<Integer, Spot> map) {
+        final int id = id(x, z);
+        return map.containsKey(id);
+    }
+
+    private Option<Spot> get(final int x, final int z, Map<Integer, Spot> map) {
+        final int id = id(x, z);
+        final Spot spot = map.get(id);
+        return opt(spot);
+    }
+
+    private Option<Spot> opt(final Spot spot) {
+        return spot == null ? new None<Spot>() : new Some<Spot>(spot);
     }
 }

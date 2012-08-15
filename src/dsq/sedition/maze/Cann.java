@@ -24,16 +24,14 @@ public class Cann {
         if (current.x == finish.x && current.z == finish.z)
             return new Some<List<Direction>>(new ArrayList<Direction>());
         
-        final Direction[] moves = Direction.values();
+        final List<Direction> moves = allMoves();
+
         for (Direction move : moves) {
             final Option<Spot> nextOption = Gat.gat(current, move, 0, width - 1, 0, height - 1);
           
             if (nextOption.isSet()) {
                 final Spot next = nextOption.getOrDie();
-                System.out.println("Next = (" + next.x + ", " + next.z + ")");
                 final int nextId = Spots.hash(next, width);
-                System.out.println("nextId = " + nextId);
-                System.out.println("been = " + been);
                 if (!been.contains(nextId)) {
                     final Set<Integer> set = new HashSet<Integer>(been);
                     set.add(nextId);
@@ -49,5 +47,11 @@ public class Cann {
         } 
         return new None<List<Direction>>();
         
+    }
+
+    private static List<Direction> allMoves() {
+        final List<Direction> r = Arrays.asList(Direction.values());
+        Collections.shuffle(r);
+        return r;
     }
 }
