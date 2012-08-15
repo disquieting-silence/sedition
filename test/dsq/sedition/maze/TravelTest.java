@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 import static dsq.sedition.maze.Direction.*;
 
-public class GatTest extends TestCase {
+public class TravelTest extends TestCase {
     
     public void test() {
         check(0, -1, new Spot(0, 0), NORTH);
@@ -15,7 +15,7 @@ public class GatTest extends TestCase {
     }
 
     private void check(final int x, final int z, final Spot start, final Direction dir) {
-        final Spot actual = Gat.gat(start, dir, -5, 15, -5, 15).getOrDie();
+        final Spot actual = Travel.go(start, dir, -5, 15, -5, 15).getOrDie();
         assertEquals(x, actual.x);
         assertEquals(z, actual.z);
     }

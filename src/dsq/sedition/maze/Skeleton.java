@@ -5,7 +5,7 @@ import dsq.sedition.util.Option;
 import java.util.List;
 
 // FIX 15/08/12 Rename me.
-public interface Vecchio {
+public interface Skeleton {
     
     Option<Spot> getV(final int x, final int z);
     Option<Spot> getH(final int x, final int z);
@@ -23,5 +23,5 @@ public interface Vecchio {
     List<Spot> vWalls();
     List<Spot> hWalls();
     
-    Vecchio copy();
+    Skeleton copy();
 }

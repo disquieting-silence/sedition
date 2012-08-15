@@ -7,13 +7,13 @@ import dsq.sedition.util.Some;
 import java.util.*;
 
 // FIX 15/08/12 Split me.
-public class DefaultVecchio implements Vecchio {
+public class DefaultSkeleton implements Skeleton {
     
     private final int width;
     private final Map<Integer, Spot> horizontal = new HashMap<Integer, Spot>();
     private final Map<Integer, Spot> vertical = new HashMap<Integer, Spot>();
 
-    public DefaultVecchio(final int width) {
+    public DefaultSkeleton(final int width) {
         this.width = width;
     }
     
@@ -96,8 +96,8 @@ public class DefaultVecchio implements Vecchio {
     }
 
     @Override
-    public Vecchio copy() {
-        final Vecchio r = new DefaultVecchio(width);
+    public Skeleton copy() {
+        final Skeleton r = new DefaultSkeleton(width);
         for (Integer x : horizontal.keySet()) {
             r.addH(horizontal.get(x));
         }

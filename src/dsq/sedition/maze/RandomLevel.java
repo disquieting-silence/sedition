@@ -15,7 +15,7 @@ public class RandomLevel implements MazeLevel {
         start = randomSpot(width, height);
         // FIX 15/08/12 It could be the same square !
         finish = randomSpot(width, height);
-        final Vecchio vec = Hyena.hyena(width, height, start, finish);
+        final Skeleton vec = Generator.skeleton(width, height, start, finish);
 
         final List<Spot> vSpots = vec.vWalls();
         final List<Spot> hSpots = vec.hWalls();
