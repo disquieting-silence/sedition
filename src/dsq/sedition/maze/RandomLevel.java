@@ -11,7 +11,7 @@ public class RandomLevel implements MazeLevel {
     private final Spot start;
     private final Spot finish;
     
-    private static double WALL_CHANCE = 0.98;
+    private static double WALL_CHANCE = 1.0;
     
     public RandomLevel(final int width, final int height) {
         start = randomSpot(width, height);

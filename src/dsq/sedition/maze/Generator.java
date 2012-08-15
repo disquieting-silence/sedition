@@ -15,12 +15,10 @@ public class Generator {
 
         // Temporary.
         final List<Path> paths = new ArrayList<Path>();
-        paths.add(Paths.calculate(start, width, height, finish));
-        for (int i = 0; i < 1; i++) {
-            paths.add(Paths.calculate(start, width, height, randomSpot(width, height)));
-        }
-        
-        
+        final Path solution = Paths.calculate(start, width, height, finish);
+        paths.add(solution);
+        paths.addAll(Herrings.herrings(solution, width, height, 0.2));
+
         final Skeleton walls = generate(width, hSpots, vSpots);
         return Clearway.makeClear(paths, walls, 0, width - 1, 0, height - 1);
     }
