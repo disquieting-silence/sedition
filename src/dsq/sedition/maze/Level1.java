@@ -15,13 +15,14 @@ public class Level1  {
     private Level1() {}
     
     public static Level level() {
-        final List<Line2D> walls = new LegacyLevel().walls();
+        final MazeLevel level = new RandomLevel(10, 10);
+        final List<Line2D> walls = level.walls();
         final List<Line2D> scaled = new ArrayList<Line2D>();
         for (final Line2D w : walls) {
             scaled.add(new Line2D(w.x1 * WIDTH, w.z1 * WIDTH, w.x2 * WIDTH, w.z2 * WIDTH));
         }
 
-        return new DefaultLevel(new Coordinate(0.5f * WIDTH, 0, -2.0f * WIDTH), scaled);
+        return new DefaultLevel(new Coordinate(level.start().x * WIDTH + 0.5f, 0, level.start().z * WIDTH + 0.5f), scaled);
     }
 
 }

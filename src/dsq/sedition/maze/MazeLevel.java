@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MazeLevel {
     List<Line2D> walls();
+    Spot start();
+    Spot finish();
 }

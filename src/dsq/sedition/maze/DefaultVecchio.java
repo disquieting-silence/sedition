@@ -80,24 +80,18 @@ public class DefaultVecchio implements Vecchio {
     @Override
     public List<Spot> vWalls() {
         final List<Spot> r = new ArrayList<Spot>(vertical.values());
-        Collections.sort(r, new Comparator<Spot>() {
-            @Override
-            public int compare(final Spot a, final Spot b) {
-                return a.x == b.x ? a.z - b.z : a.x - b.x;
-            }
-        });
-        return r;
+        return sort(r, new VWalls());
     }
 
     @Override
     public List<Spot> hWalls() {
         final List<Spot> r = new ArrayList<Spot>(horizontal.values());
-        Collections.sort(r, new Comparator<Spot>() {
-            @Override
-            public int compare(final Spot a, final Spot b) {
-                return a.z == b.z ? a.x - b.x : a.z - b.z;
-            }
-        });
+        return sort(r, new HWalls());
+    }
+
+    private List<Spot> sort(final List<Spot> input, final Walls walls) {
+        final List<Spot> r = new ArrayList<Spot>(input);
+        Collections.sort(r, walls.comparator());
         return r;
     }
 

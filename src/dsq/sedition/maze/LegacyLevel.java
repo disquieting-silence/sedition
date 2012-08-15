@@ -68,6 +68,16 @@ public class LegacyLevel implements MazeLevel {
         );
     }
 
+    @Override
+    public Spot start() {
+        return new Spot(0, 0);
+    }
+
+    @Override
+    public Spot finish() {
+        return new Spot(1, 0);
+    }
+
     private static Line2D h(float x1, float x2, float z) {
         return new Line2D(x1, z, x2, z);
     }
