@@ -34,3 +34,13 @@ VIDEO CAPTURE:
         >> find . -name "droidAtScreen-??.png" | while read f; do mv "$f" "a`basename $f`"; done to make all ?? appear before ??
  - run mencoder to generate the AVI:
         >> mencoder "mf://*.jpg" -mf fps=10 -o test.avi -ovc lavc -lavcopts vcodec=msmpeg4v2:vbitrate=800
+
+MAZE GENERATION
+ - generate a random path through the grid.
+ - encode it in some way
+ - depending on the difficulty, generate walls which don't invalidate this path
+ - for more ideas of difficulty increasing:
+   - generate paths to other places near
+   - block of those places near
+   - generate walls that don't invalid these paths (red herrings)
+ - a simpler approach ... enumerate all possible walls. Subtract walls that block the path. Potentially add all others.
