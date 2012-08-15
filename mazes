@@ -6,3 +6,8 @@ them above the android library in the project dependencies list. That seemed to 
 
 Need to combined Joiner and Hyena to make walls for maze
 Random seed for regenerating same maze. Integrate with shuffle somehow.
+
+ - random seed specification
+ - checkpoint graphic
+ - include / exclude start position from been list
+ - infinitely looping ?

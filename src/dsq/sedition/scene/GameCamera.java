@@ -7,12 +7,14 @@ import javax.microedition.khronos.opengles.GL10;
 public class GameCamera implements GlimpseCamera {
     
     private final Camera playerCam;
-    private final ScaledCamera scaleCam = new EagleCamera();
+    private final ScaledCamera scaleCam;
     
-    private Camera current = scaleCam;
+    private Camera current;
 
     public GameCamera(final Player player) {
         playerCam = new PlayerCamera(player);
+        scaleCam = new EagleCamera(player.getPosition());
+        current = scaleCam;
     }
 
     @Override

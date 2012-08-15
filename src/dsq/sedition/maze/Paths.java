@@ -11,7 +11,7 @@ public class Paths {
     private Paths() { }
     
     public static Path calculate(final Spot start, final int width, final int height, final Spot finish) {
-        final Option<List<Direction>> movesOption = calculate(start, finish, width, height, new HashSet<Integer>());
+        final Option<List<Direction>> movesOption = calculate(start, finish, width, height, new HashSet<Integer>(Spots.hash(start, width)));
         final List<Direction> moves = movesOption.getOr(new LinkedList<Direction>());
 
 

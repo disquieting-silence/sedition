@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DefaultGame implements Game {
 
-    public static final float ZOOM_OUT_RATE = 0.001f;
+    public static final float ZOOM_OUT_RATE = 0.0002f;
     private final MutablePlayer player;
     private final GlimpseCamera camera;
     
@@ -87,9 +87,9 @@ public class DefaultGame implements Game {
         if (viewState == ViewState.TOP) {
             final float newScale = camera.getScale() - ZOOM_OUT_RATE;
             camera.setScale(newScale);
-            if (newScale < 0.4) {
+            if (newScale < 0.3) {
                 camera.transition();
-                clock.start(15000L);
+                clock.start(85000L);
                 viewState = ViewState.PLAYER;
             }
         } else {
