@@ -15,7 +15,7 @@ public class GatTest extends TestCase {
     }
 
     private void check(final int x, final int z, final Spot start, final Direction dir) {
-        final Spot actual = Gat.gat(start, dir);
+        final Spot actual = Gat.gat(start, dir, -5, 15, -5, 15).getOrDie();
         assertEquals(x, actual.x);
         assertEquals(z, actual.z);
     }
