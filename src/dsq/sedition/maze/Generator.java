@@ -12,8 +12,11 @@ public class Generator {
         final List<Spot> hSpots = GenList.horizontal(width, height);
         final List<Spot> vSpots = GenList.vertical(width, height);
 
+
         final Skeleton walls = generate(width, hSpots, vSpots);
+        System.out.println("Walls calculated");
         final Path path = Paths.calculate(start, width, height, finish);
+        System.out.println("Path calculated");
         return Clearway.makeClear(path, walls, 0, width - 1, 0, height - 1);
     }
 

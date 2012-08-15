@@ -7,20 +7,29 @@ import dsq.sedition.util.Some;
 import java.util.*;
 
 public class Paths {
-    
+
+    public static final long TIMEOUT = 100L;
+
     private Paths() { }
     
     public static Path calculate(final Spot start, final int width, final int height, final Spot finish) {
-        final Option<List<Direction>> movesOption = calculate(start, finish, width, height, new HashSet<Integer>(Spots.hash(start, width)));
+        final HashSet<Integer> set = new HashSet<Integer>(Spots.hash(start, width));
+        Option<List<Direction>> movesOption = calculate(System.currentTimeMillis(), start, finish, width, height, set);
+        while (!movesOption.isSet())
+            movesOption = calculate(System.currentTimeMillis(), start, finish, width, height, set);
+
         final List<Direction> moves = movesOption.getOr(new LinkedList<Direction>());
-
-
         return new Path(start, moves, finish);
     }
-    
-    private static Option<List<Direction>> calculate(final Spot current, final Spot finish, final int width, final int height, final Set<Integer> been) {
-        if (current.x == finish.x && current.z == finish.z)
+
+    // FIX 16/08/12 This seems to loop endlessly a bit. Need to fix.
+    private static Option<List<Direction>> calculate(final long time, final Spot current, final Spot finish, final int width, final int height, final Set<Integer> been) {
+        if (System.currentTimeMillis() - time > TIMEOUT) return new None<List<Direction>>();
+        
+        if (current.x == finish.x && current.z == finish.z) {
+            System.out.println("Found target");
             return new Some<List<Direction>>(new ArrayList<Direction>());
+        }
         
         final List<Direction> moves = allMoves();
 
@@ -33,7 +42,7 @@ public class Paths {
                 if (!been.contains(nextId)) {
                     final Set<Integer> set = new HashSet<Integer>(been);
                     set.add(nextId);
-                    final Option<List<Direction>> restOption = calculate(next, finish, width, height, set);
+                    final Option<List<Direction>> restOption = calculate(time, next, finish, width, height, set);
                     if (restOption.isSet()) {
                         final List<Direction> rest = restOption.getOrDie();
                         // FIX 15/08/12 Should I duplicate here? This really is so much easier when you have immutability ...

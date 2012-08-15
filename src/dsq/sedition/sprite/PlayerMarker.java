@@ -11,7 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class PlayerMarker implements Sprite {
 
     private int[] textures = new int[1];
-    private static final float SIZE = 2;
+    private static final float SIZE = 4;
     private static final float PAD = 0.4f;
     
     private final float y;
