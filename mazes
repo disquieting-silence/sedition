@@ -3,3 +3,6 @@ probably start to set up a unit testing framework, because of the difficulties i
 However, when I tried that, I got a junit/textui/ResultPrinter error, because the JUnit shipped with Android was
 incompatible with IntelliJ. In order to fix this, I simply used the junit jars in IntelliJ's own directory, and moved
 them above the android library in the project dependencies list. That seemed to fix it ... so far.
+
+Need to combined Joiner and Hyena to make walls for maze
+Random seed for regenerating same maze. Integrate with shuffle somehow.
