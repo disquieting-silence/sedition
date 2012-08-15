@@ -11,13 +11,13 @@ public class RandomLevel implements MazeLevel {
     private final Spot start;
     private final Spot finish;
     
+    private static double WALL_CHANCE = 0.98;
+    
     public RandomLevel(final int width, final int height) {
         start = randomSpot(width, height);
         // FIX 15/08/12 It could be the same square !
         finish = randomSpot(width, height);
-        System.out.println("about to enter generation");
         final Skeleton skeleton = Generator.skeleton(width, height, start, finish);
-        System.out.println("skeleton = " + skeleton);
 
         final List<Spot> vSpots = skeleton.vWalls();
         final List<Spot> hSpots = skeleton.hWalls();
@@ -25,13 +25,14 @@ public class RandomLevel implements MazeLevel {
         walls = new ArrayList<Line2D>();
         final List<Line2D> vWalls = Joiner.join(vSpots, new VWalls());
         final List<Line2D> hWalls = Joiner.join(hSpots, new HWalls());
-        walls.addAll(vWalls);
-        walls.addAll(hWalls);
-        System.out.println("done");
-//        final List<HWall> hWalls = Joiner.join(hSpots, new HWalls());
 
+        for (Line2D w : vWalls) {
+            if (Math.random() < WALL_CHANCE) walls.add(w);
+        }
 
-
+        for (Line2D w : hWalls) {
+            if (Math.random() < WALL_CHANCE) walls.add(w);
+        }
     }
     
     @Override

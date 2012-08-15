@@ -1,5 +1,6 @@
 package dsq.sedition.maze;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // FIX 15/08/12 Rename me. Obviously.
@@ -12,12 +13,16 @@ public class Generator {
         final List<Spot> hSpots = GenList.horizontal(width, height);
         final List<Spot> vSpots = GenList.vertical(width, height);
 
-
+        // Temporary.
+        final List<Path> paths = new ArrayList<Path>();
+        paths.add(Paths.calculate(start, width, height, finish));
+        for (int i = 0; i < 1; i++) {
+            paths.add(Paths.calculate(start, width, height, randomSpot(width, height)));
+        }
+        
+        
         final Skeleton walls = generate(width, hSpots, vSpots);
-        System.out.println("Walls calculated");
-        final Path path = Paths.calculate(start, width, height, finish);
-        System.out.println("Path calculated");
-        return Clearway.makeClear(path, walls, 0, width - 1, 0, height - 1);
+        return Clearway.makeClear(paths, walls, 0, width - 1, 0, height - 1);
     }
 
     private static Skeleton generate(final int width, final List<Spot> hSpots, final List<Spot> vSpots) {
@@ -30,5 +35,12 @@ public class Generator {
             r.addH(hSpot);
         }
         return r;
+    }
+
+    // FIX 16/08/12 Dupe with random level.
+    private static Spot randomSpot(final int width, final int height) {
+        final int w = (int) (Math.random() * width);
+        final int h = (int)(Math.random() * height);
+        return new Spot(w, h);
     }
 }

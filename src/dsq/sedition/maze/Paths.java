@@ -27,7 +27,6 @@ public class Paths {
         if (System.currentTimeMillis() - time > TIMEOUT) return new None<List<Direction>>();
         
         if (current.x == finish.x && current.z == finish.z) {
-            System.out.println("Found target");
             return new Some<List<Direction>>(new ArrayList<Direction>());
         }
         
