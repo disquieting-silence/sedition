@@ -86,7 +86,7 @@ public class DefaultGame implements Game {
         // FIX 12/08/12 This switches on orientation change. Bug.
         if (viewState == ViewState.TOP) {
             final float newScale = camera.getScale() - ZOOM_OUT_RATE;
-            camera.setScale(newScale);
+//            camera.setScale(newScale);
             if (newScale < 0.3) {
                 camera.transition();
                 clock.start(85000L);

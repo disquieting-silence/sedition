@@ -15,9 +15,10 @@ public class RandomLevel implements MazeLevel {
     
     public RandomLevel(final int width, final int height) {
         start = randomSpot(width, height);
-        // FIX 15/08/12 It could be the same square !
-        finish = randomSpot(width, height);
-        final Skeleton skeleton = Generator.skeleton(width, height, start, finish);
+
+        final Path solution = RandomPaths.calculate(start, width, height, 60);
+        finish = solution.finish;
+        final Skeleton skeleton = Generator.skeleton(solution, width, height);
 
         final List<Spot> vSpots = skeleton.vWalls();
         final List<Spot> hSpots = skeleton.hWalls();

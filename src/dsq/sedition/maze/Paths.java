@@ -13,7 +13,9 @@ public class Paths {
     private Paths() { }
     
     public static Path calculate(final Spot start, final int width, final int height, final Spot finish) {
-        final HashSet<Integer> set = new HashSet<Integer>(Spots.hash(start, width));
+        final int startId = Spots.hash(start, width);
+        final HashSet<Integer> set = new HashSet<Integer>();
+        set.add(startId);
         Option<List<Direction>> movesOption = calculate(System.currentTimeMillis(), start, finish, width, height, set);
         while (!movesOption.isSet())
             movesOption = calculate(System.currentTimeMillis(), start, finish, width, height, set);
