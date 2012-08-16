@@ -1,5 +1,8 @@
 package dsq.sedition.maze;
 
+import dsq.sedition.maze.data.Bounds;
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.util.GenList;
 import junit.framework.TestCase;
 
 import java.util.List;
@@ -66,12 +69,12 @@ public class GenListTest extends TestCase {
     }
     
     private void checkV(final List<Spot> expected, final int width, final int height) {
-        final List<Spot> actual = GenList.vertical(width, height);
+        final List<Spot> actual = GenList.vertical(new Bounds(width, height));
         check(expected, actual);
     }
 
     private void checkH(final List<Spot> expected, final int width, final int height) {
-        final List<Spot> actual = GenList.horizontal(width, height);
+        final List<Spot> actual = GenList.horizontal(new Bounds(width, height));
         check(expected, actual);
     }
 

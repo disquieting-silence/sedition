@@ -1,19 +1,24 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.level;
 
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.util.Spots;
+import dsq.sedition.maze.walls.HWalls;
+import dsq.sedition.maze.walls.VWalls;
+import dsq.sedition.maze.walls.Walls;
 import dsq.sedition.util.None;
 import dsq.sedition.util.Option;
 import dsq.sedition.util.Some;
 
 import java.util.*;
 
-// FIX 15/08/12 Split me.
-public class DefaultSkeleton implements Skeleton {
+// FIX 15/08/12 Split me. Please. I beg you.
+public class DefaultBlueprint implements Blueprint {
     
     private final int width;
     private final Map<Integer, Spot> horizontal = new HashMap<Integer, Spot>();
     private final Map<Integer, Spot> vertical = new HashMap<Integer, Spot>();
 
-    public DefaultSkeleton(final int width) {
+    public DefaultBlueprint(final int width) {
         this.width = width;
     }
     
@@ -96,8 +101,8 @@ public class DefaultSkeleton implements Skeleton {
     }
 
     @Override
-    public Skeleton copy() {
-        final Skeleton r = new DefaultSkeleton(width);
+    public Blueprint copy() {
+        final Blueprint r = new DefaultBlueprint(width);
         for (Integer x : horizontal.keySet()) {
             r.addH(horizontal.get(x));
         }

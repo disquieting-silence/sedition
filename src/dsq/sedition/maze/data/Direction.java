@@ -1,4 +1,4 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.data;
 
 public enum Direction {
     NORTH,

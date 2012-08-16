@@ -1,11 +1,12 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.level;
 
+import dsq.sedition.maze.data.Spot;
 import dsq.sedition.util.Option;
 
 import java.util.List;
 
 // FIX 15/08/12 Rename me.
-public interface Skeleton {
+public interface Blueprint {
     
     Option<Spot> getV(final int x, final int z);
     Option<Spot> getH(final int x, final int z);
@@ -23,5 +24,5 @@ public interface Skeleton {
     List<Spot> vWalls();
     List<Spot> hWalls();
     
-    Skeleton copy();
+    Blueprint copy();
 }

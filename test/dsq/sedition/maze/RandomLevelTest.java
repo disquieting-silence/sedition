@@ -1,6 +1,7 @@
 package dsq.sedition.maze;
 
 import dsq.sedition.collision.Line2D;
+import dsq.sedition.maze.level.RandomLevel;
 import junit.framework.TestCase;
 
 import java.util.List;

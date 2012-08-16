@@ -1,6 +1,7 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.walls;
 
 import dsq.sedition.collision.Line2D;
+import dsq.sedition.maze.data.Spot;
 
 import java.util.Comparator;
 

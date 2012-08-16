@@ -10,7 +10,7 @@ import dsq.sedition.core.Level;
 import dsq.sedition.event.DefaultEventListener;
 import dsq.sedition.event.EventListener;
 import dsq.sedition.gl.GLRenderer;
-import dsq.sedition.maze.Level1;
+import dsq.sedition.maze.level.Level1;
 import dsq.sedition.ui.DefaultGameUi;
 import dsq.sedition.ui.GameUi;
 import dsq.sedition.core.Game;

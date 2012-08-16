@@ -11,3 +11,5 @@ Random seed for regenerating same maze. Integrate with shuffle somehow.
  - checkpoint graphic
  - include / exclude start position from been list
  - infinitely looping ?
+
+ - arrows left and right and go for eagle view. (icons would be great ....)

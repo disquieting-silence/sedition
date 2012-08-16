@@ -1,6 +1,8 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.util;
 
 import dsq.sedition.collision.Line2D;
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.walls.Walls;
 
 import java.util.ArrayList;
 import java.util.List;

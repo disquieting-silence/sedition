@@ -1,8 +1,12 @@
 package dsq.sedition.maze;
 
+import dsq.sedition.maze.data.Bounds;
+import dsq.sedition.maze.data.Direction;
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.util.Travel;
 import junit.framework.TestCase;
 
-import static dsq.sedition.maze.Direction.*;
+import static dsq.sedition.maze.data.Direction.*;
 
 public class TravelTest extends TestCase {
     
@@ -15,7 +19,7 @@ public class TravelTest extends TestCase {
     }
 
     private void check(final int x, final int z, final Spot start, final Direction dir) {
-        final Spot actual = Travel.go(start, dir, -5, 15, -5, 15).getOrDie();
+        final Spot actual = Travel.go(start, dir, new Bounds(20, 20, -5, 15, -5, 15)).getOrDie();
         assertEquals(x, actual.x);
         assertEquals(z, actual.z);
     }

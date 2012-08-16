@@ -1,13 +1,17 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.level;
 
 import dsq.sedition.collision.Line2D;
 import dsq.sedition.core.DefaultLevel;
 import dsq.sedition.core.Level;
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.level.MazeLevel;
+import dsq.sedition.maze.level.RandomLevel;
 import dsq.sedition.scene.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// FIX 16/08/12 I think this structure needs revisiting.
 public class Level1  {
     
     private static final int MARGIN = 4;

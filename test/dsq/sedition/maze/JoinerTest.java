@@ -1,6 +1,10 @@
 package dsq.sedition.maze;
 
 import dsq.sedition.collision.Line2D;
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.util.Joiner;
+import dsq.sedition.maze.walls.HWalls;
+import dsq.sedition.maze.walls.VWalls;
 import junit.framework.TestCase;
 
 import java.util.*;

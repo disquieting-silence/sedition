@@ -1,6 +1,15 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.level;
 
 import dsq.sedition.collision.Line2D;
+import dsq.sedition.maze.util.Joiner;
+import dsq.sedition.maze.data.Bounds;
+import dsq.sedition.maze.data.Path;
+import dsq.sedition.maze.data.Spot;
+import dsq.sedition.maze.path.Pather;
+import dsq.sedition.maze.path.RandomPather;
+import dsq.sedition.maze.walls.HWalls;
+import dsq.sedition.maze.walls.VWalls;
+import dsq.sedition.util.None;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +22,19 @@ public class RandomLevel implements MazeLevel {
     
     private static double WALL_CHANCE = 1.0;
     
+    private final Pather paths = new RandomPather(60);
+    private final Generator generator = new DefaultGenerator();
+    
     public RandomLevel(final int width, final int height) {
         start = randomSpot(width, height);
 
-        final Path solution = RandomPaths.calculate(start, width, height, 60);
+        final Bounds bounds = new Bounds(width, height);
+        final Path solution = paths.generate(start, new None<Spot>(), bounds);
         finish = solution.finish;
-        final Skeleton skeleton = Generator.skeleton(solution, width, height);
+        final Blueprint blueprint = generator.gen(solution, bounds);
 
-        final List<Spot> vSpots = skeleton.vWalls();
-        final List<Spot> hSpots = skeleton.hWalls();
+        final List<Spot> vSpots = blueprint.vWalls();
+        final List<Spot> hSpots = blueprint.hWalls();
 
         walls = new ArrayList<Line2D>();
         final List<Line2D> vWalls = Joiner.join(vSpots, new VWalls());

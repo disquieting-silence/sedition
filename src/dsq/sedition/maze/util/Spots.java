@@ -1,4 +1,6 @@
-package dsq.sedition.maze;
+package dsq.sedition.maze.util;
+
+import dsq.sedition.maze.data.Spot;
 
 public class Spots {
     private Spots()  { }
