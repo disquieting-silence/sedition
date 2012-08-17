@@ -1,8 +1,12 @@
-package dsq.sedition.sprite;
+package dsq.sedition.view;
 
 import android.content.Context;
 import dsq.sedition.R;
+import dsq.sedition.sprite.DefaultColour;
+import dsq.sedition.sprite.Sprite;
 import dsq.sedition.util.Textures;
+import dsq.sedition.view.DefaultViewPanel;
+import dsq.sedition.view.ViewPanel;
 
 import javax.microedition.khronos.opengles.GL10;
 

@@ -1,4 +1,4 @@
-package dsq.sedition.sprite;
+package dsq.sedition.view;
 
 import dsq.sedition.scene.SceneDraw;
 

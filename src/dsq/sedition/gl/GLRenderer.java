@@ -5,16 +5,11 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import dsq.sedition.core.Game;
 import dsq.sedition.light.*;
-import dsq.sedition.scene.DefaultViewport;
+import dsq.sedition.view.*;
 import dsq.sedition.scene.SceneDraw;
-import dsq.sedition.scene.Viewport;
 import dsq.sedition.sprite.*;
-import dsq.sedition.timer.DefaultMutableTimer;
-import dsq.sedition.timer.MutableTimer;
-import dsq.sedition.timer.Timer;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import java.util.List;
 
@@ -22,6 +17,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     public static final int DASHBOARD_HEIGHT = 100;
     public static final int TIMER_HEIGHT = 50;
+    public static final int SPEED_HEIGHT = 20;
 
     private final Context context;
     private final Game game;
@@ -30,13 +26,15 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     private int currentHeight;
     
     // FIX 11/06/12 Should I move floor into level ?
-    private Floor floor;
-    private Sprite timer;
-    private Sprite commands;
+    private Sprite floorSprite;
+    private Sprite timeSprite;
+    private Sprite commandsSprite;
+    private Sprite speedSprite;
     
     private Viewport mainView;
     private Viewport dashboardView;
     private Viewport timerView;
+    private Viewport speedView;
 
     private Light sun;
     private Light headlight;
@@ -54,14 +52,24 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         drawDashboard(g);
         drawTimer(g);
         drawMain(g);
+        drawSpeed(g);
         game.update();
+    }
+
+    private void drawSpeed(final GL10 g) {
+        speedView.draw(g, new DefaultColour(1.0f, 0, 0, 1), new SceneDraw() {
+            @Override
+            public void draw(final GL10 g) {
+                speedSprite.draw(g);
+            }
+        });
     }
 
     private void drawDashboard(final GL10 g) {
         dashboardView.draw(g, new DefaultColour(0.3f, 0.3f, 0.3f, 1.0f), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                commands.draw(g);
+                commandsSprite.draw(g);
             }
         });
     }
@@ -86,13 +94,13 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         timerView.draw(g, new DefaultColour(0.1f, 0.1f, 0.1f, 1.0f), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                timer.draw(g);
+                timeSprite.draw(g);
             }
         });
     }
 
     private void drawScene(final GL10 g) {
-        floor.draw(g);
+        floorSprite.draw(g);
         final List<Sprite> sprites = game.sprites();
         for (Sprite sprite : sprites) {
             sprite.draw(g);
@@ -104,14 +112,16 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         sun = new Sun(g, GL10.GL_LIGHT0);
         headlight = new Headlight(g, GL10.GL_LIGHT1, new LightPosition(0, 0, 0, LightType.DIRECTIONAL), new LightDirection(0, 0, -1f));
-        floor = new DefaultFloor();
-        timer = new CountdownSprite(game.timer());
-        commands = new CommandsSprite();
+        floorSprite = new DefaultFloor();
+        timeSprite = new CountdownSprite(game.timer());
+        commandsSprite = new CommandsSprite();
+        speedSprite = new SpeedSprite(game.player());
 
-        // FIX 2/06/12 Make floor a sprite?
-        floor.loadGLTexture(g, this.context);
-        timer.loadGLTexture(g, this.context);
-        commands.loadGLTexture(g, this.context);
+        // FIX 2/06/12 Make floorSprite a sprite?
+        floorSprite.loadGLTexture(g, this.context);
+        timeSprite.loadGLTexture(g, this.context);
+        commandsSprite.loadGLTexture(g, this.context);
+        speedSprite.loadGLTexture(g, this.context);
         
         // FIX 11/06/12 This is a bit clunky
         final List<Sprite> allSprites = game.allSprites();
@@ -151,9 +161,10 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         g.glMatrixMode(GL10.GL_MODELVIEW);
         g.glLoadIdentity();
 
-        final int mainHeight = height - DASHBOARD_HEIGHT - TIMER_HEIGHT;
-        mainView = new DefaultViewport(0, DASHBOARD_HEIGHT, width, mainHeight);
+        final int mainHeight = height - DASHBOARD_HEIGHT - TIMER_HEIGHT - SPEED_HEIGHT;
         dashboardView = new DefaultViewport(0, 0, width, DASHBOARD_HEIGHT);
+        speedView = new DefaultViewport(0, DASHBOARD_HEIGHT, width, SPEED_HEIGHT);
+        mainView = new DefaultViewport(0, DASHBOARD_HEIGHT + SPEED_HEIGHT, width, mainHeight);
         timerView = new DefaultViewport(0, height - TIMER_HEIGHT, width, TIMER_HEIGHT);
     }
 }

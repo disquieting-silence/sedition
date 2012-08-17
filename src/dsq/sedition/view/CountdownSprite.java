@@ -1,15 +1,15 @@
-package dsq.sedition.sprite;
+package dsq.sedition.view;
 
 import android.content.Context;
 import dsq.sedition.R;
-import dsq.sedition.scene.Coordinate;
+import dsq.sedition.sprite.DefaultColour;
+import dsq.sedition.sprite.Sprite;
 import dsq.sedition.timer.Timer;
-import dsq.sedition.util.Panels;
-import dsq.sedition.util.Quads;
 import dsq.sedition.util.Textures;
+import dsq.sedition.view.DefaultViewPanel;
+import dsq.sedition.view.ViewPanel;
 
 import javax.microedition.khronos.opengles.GL10;
-import java.util.List;
 
 public class CountdownSprite implements Sprite {
     
@@ -22,7 +22,7 @@ public class CountdownSprite implements Sprite {
 
     public CountdownSprite(final Timer timer) {
         this.timer = timer;
-        view = new DefaultViewPanel(5, new DefaultColour(1.0f, 1.0f, 1.0f, 1.0f), 0.2f, 0.2f);
+        view = new DefaultViewPanel(5, new DefaultColour(1.0f, 1.0f, 1.0f, 1.0f), 0.4f, 0.2f);
     }
     
     private int id(int number) {

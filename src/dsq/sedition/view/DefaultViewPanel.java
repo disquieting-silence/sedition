@@ -1,5 +1,7 @@
-package dsq.sedition.sprite;
+package dsq.sedition.view;
 
+import dsq.sedition.sprite.Colour;
+import dsq.sedition.sprite.Quad;
 import dsq.sedition.util.Panels;
 import dsq.sedition.util.Quads;
 

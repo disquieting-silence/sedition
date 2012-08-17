@@ -87,7 +87,7 @@ public class DefaultGame implements Game {
         if (viewState == ViewState.TOP) {
             final float newScale = camera.getScale() - ZOOM_OUT_RATE;
             camera.setScale(newScale);
-            if (newScale < 0.3 || true) {
+            if (newScale < 0.3) {
                 camera.transition();
                 clock.start(85000L);
                 viewState = ViewState.PLAYER;

@@ -9,7 +9,6 @@ import java.util.List;
 
 public class DefaultPlayer implements MutablePlayer {
 
-    public static final float MAX_SPEED = 0.30f;
     private Coordinate pos;
     private float direction;
     private float speed;

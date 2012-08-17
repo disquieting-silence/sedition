@@ -9,8 +9,8 @@ import dsq.sedition.util.Textures;
 import javax.microedition.khronos.opengles.GL10;
 
 public class DefaultMarker implements Sprite {
-    private static final float SIZE = 2;
-    private static final float PAD = 0.4f;
+    private static final float SIZE = 1;
+    private static final float PAD = 0;
 
     private final float y;
 

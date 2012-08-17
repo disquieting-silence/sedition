@@ -1,5 +1,6 @@
-package dsq.sedition.scene;
+package dsq.sedition.view;
 
+import dsq.sedition.scene.SceneDraw;
 import dsq.sedition.sprite.Colour;
 
 import javax.microedition.khronos.opengles.GL10;
