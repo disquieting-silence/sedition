@@ -6,24 +6,10 @@ import dsq.sedition.sprite.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// FIX 17/08/12 Possibly move / rename.
 public class Panels {
 
-    public static List<Quad> make(final int num, final float left, final float top, final float right, final float bottom, final Colour colour) {
-        final List<Quad> r = new ArrayList<Quad>();
-
-        final float width = (right - left) / num;
-        final float height = Math.abs(bottom - top);
-
-        final float centre = (right + left) / 2;
-        final float start = centre - (num / 2.0f) * width;
-
-        for (int i = 0; i < num; i++) {
-            r.add(sprite(start + width * i, top, width, height, colour));
-        }
-        return r;
-    }
-
-    private static Quad sprite(final float x, final float y, final float width, final float height, final Colour colour) {
+    public static Quad quad(final float x, final float y, final float width, final float height, final Colour colour) {
 
         final Material material = new AmbDiffMaterial(colour);
         final Coordinate p1 = new Coordinate(x, y, -1);

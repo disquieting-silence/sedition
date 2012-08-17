@@ -17,13 +17,12 @@ public class CountdownSprite implements Sprite {
     
     private final int [] symTextures = new int[1];
     private final int [] numTextures = new int[10];
-    
-    private final List<Quad> sprites;
+
+    private final ViewPanel view;
 
     public CountdownSprite(final Timer timer) {
         this.timer = timer;
-        
-        sprites = Panels.make(5, -0.5f, -0.5f, 0.5f, 0.5f, new DefaultColour(1.0f, 1.0f, 1.0f, 1.0f));
+        view = new DefaultViewPanel(5, new DefaultColour(1.0f, 1.0f, 1.0f, 1.0f), 0.2f, 0.2f);
     }
     
     private int id(int number) {
@@ -42,10 +41,8 @@ public class CountdownSprite implements Sprite {
             id(seconds / 10),
             id(seconds % 10)
         };
-        
-        for (int i = 0; i < sprites.size(); i++) {
-            Quads.draw(g, sprites.get(i), textures[i]);
-        }
+
+        view.draw(g, textures);
     }
 
     @Override
