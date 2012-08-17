@@ -61,20 +61,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         dashboardView.draw(g, new DefaultColour(0.3f, 0.3f, 0.3f, 1.0f), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                g.glDisable(GL10.GL_LIGHTING);
-                g.glMatrixMode(GL10.GL_PROJECTION);
-                g.glPushMatrix();
-                g.glLoadIdentity();
-                g.glOrthof(0, 3, 0, 1, -1, 1);
-                g.glMatrixMode(GL10.GL_MODELVIEW);
-                g.glPushMatrix();
-                g.glLoadIdentity();
                 commands.draw(g);
-                g.glPopMatrix();
-                g.glMatrixMode(GL10.GL_PROJECTION);
-                g.glPopMatrix();
-                g.glMatrixMode(GL10.GL_MODELVIEW);
-                g.glEnable(GL10.GL_LIGHTING);
             }
         });
     }
@@ -99,10 +86,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         timerView.draw(g, new DefaultColour(0.1f, 0.1f, 0.1f, 1.0f), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                g.glPushMatrix();
-                g.glLoadIdentity();
                 timer.draw(g);
-                g.glPopMatrix();
             }
         });
     }
