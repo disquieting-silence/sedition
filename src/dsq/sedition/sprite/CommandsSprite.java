@@ -25,7 +25,7 @@ public class CommandsSprite implements Sprite {
     public void loadGLTexture(final GL10 g, final Context context) {
         g.glGenTextures(textures.length, textures, 0);
         Textures.load(g, context, textures[0], R.drawable.back);
-        Textures.load(g, context, textures[1], R.drawable.back);
-        Textures.load(g, context, textures[2], R.drawable.back);
+        Textures.load(g, context, textures[1], R.drawable.ahead);
+        Textures.load(g, context, textures[2], R.drawable.right);
     }
 }
