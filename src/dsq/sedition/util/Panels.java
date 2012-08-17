@@ -25,7 +25,7 @@ public class Panels {
 
     private static Quad sprite(final float x, final float y, final float width, final float height, final Colour colour) {
 
-        final AmbDiffMaterial material = new AmbDiffMaterial(colour);
+        final Material material = new AmbDiffMaterial(colour);
         final Coordinate p1 = new Coordinate(x, y, -1);
         final Coordinate p2 = new Coordinate(x + width, y, -1);
         final Coordinate p3 = new Coordinate(x + width, y + height, -1);

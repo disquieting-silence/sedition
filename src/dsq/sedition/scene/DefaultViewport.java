@@ -1,5 +1,7 @@
 package dsq.sedition.scene;
 
+import dsq.sedition.sprite.Colour;
+
 import javax.microedition.khronos.opengles.GL10;
 
 public class DefaultViewport implements Viewport {
@@ -18,14 +20,17 @@ public class DefaultViewport implements Viewport {
     @Override
     public void setBackground(final GL10 g, final float red, final float green, final float blue, final float alpha) {
         g.glEnable(GL10.GL_SCISSOR_TEST);
-        g.glClearColor(red, green, blue, alpha);
         g.glScissor(x, y, width, height);
+        g.glClearColor(red, green, blue, alpha);
         g.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         g.glDisable(GL10.GL_SCISSOR_TEST);
     }
 
     @Override
-    public void setActive(final GL10 g) {
+    public void draw(final GL10 g, final Colour bg, final SceneDraw d) {
+        setBackground(g, bg.red(), bg.green(), bg.blue(), bg.alpha());
         g.glViewport(x, y, width, height);
+        d.draw(g);
     }
+
 }

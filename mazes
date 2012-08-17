@@ -13,3 +13,5 @@ Random seed for regenerating same maze. Integrate with shuffle somehow.
  - infinitely looping ?
 
  - arrows left and right and go for eagle view. (icons would be great ....)
+
+ - emission REALLY slows it down.
