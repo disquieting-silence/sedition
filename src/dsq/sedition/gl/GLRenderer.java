@@ -15,10 +15,6 @@ import java.util.List;
 
 public class GLRenderer implements GLSurfaceView.Renderer {
 
-    public static final int DASHBOARD_HEIGHT = 100;
-    public static final int TIMER_HEIGHT = 50;
-    public static final int SPEED_HEIGHT = 20;
-
     private final Context context;
     private final Game game;
     
@@ -161,10 +157,14 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         g.glMatrixMode(GL10.GL_MODELVIEW);
         g.glLoadIdentity();
 
-        final int mainHeight = height - DASHBOARD_HEIGHT - TIMER_HEIGHT - SPEED_HEIGHT;
-        dashboardView = new DefaultViewport(0, 0, width, DASHBOARD_HEIGHT);
-        speedView = new DefaultViewport(0, DASHBOARD_HEIGHT, width, SPEED_HEIGHT);
-        mainView = new DefaultViewport(0, DASHBOARD_HEIGHT + SPEED_HEIGHT, width, mainHeight);
-        timerView = new DefaultViewport(0, height - TIMER_HEIGHT, width, TIMER_HEIGHT);
+        final int dashboardHeight = (int)(0.15 * currentHeight);
+        final int timerHeight = (int)(0.08 * currentHeight);
+        final int speedHeight = (int)(0.02 * currentHeight);
+
+        final int mainHeight = height - dashboardHeight - timerHeight - speedHeight;
+        dashboardView = new DefaultViewport(0, 0, width, dashboardHeight);
+        speedView = new DefaultViewport(0, dashboardHeight, width, speedHeight);
+        mainView = new DefaultViewport(0, dashboardHeight + speedHeight, width, mainHeight);
+        timerView = new DefaultViewport(0, height - timerHeight, width, timerHeight);
     }
 }
