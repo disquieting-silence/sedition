@@ -21,7 +21,7 @@ public class CommandsSprite implements Sprite {
     }
 
     @Override
-    public void draw(final GL10 g) {
+    public void use(final GL10 g) {
         view.draw(g, textures);
     }
 

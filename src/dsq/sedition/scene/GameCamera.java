@@ -18,8 +18,8 @@ public class GameCamera implements GlimpseCamera {
     }
 
     @Override
-    public void position(final GL10 g) {
-        current.position(g);
+    public void use(final GL10 g) {
+        current.use(g);
     }
 
     @Override

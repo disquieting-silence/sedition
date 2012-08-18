@@ -1,5 +1,6 @@
 package dsq.sedition.view;
 
+import android.content.Context;
 import android.opengl.GLU;
 import dsq.sedition.core.Game;
 import dsq.sedition.options.Options;
@@ -19,17 +20,18 @@ public class GroundJaguar implements Jaguar {
     }
 
     @Override
-    public void onResize(final GL10 g, final int width, final int height, final Game game) {
+    public void onCreate(final GL10 g, final Context context, final Game game) {
     }
 
     @Override
-    public void projection(final GL10 g, final int width, final int height, final Game game) {
+    public void onResize(final GL10 g, final int width, final int height, final Game game) {
         final float clip = farClip(game);
         jags.projection(g, width, height, clip);
     }
 
     @Override
-    public void model(final GL10 g, final int width, final int height, final Game game) {
+    public void onDraw(final GL10 g, final int width, final int height, final Game game) {
+
     }
 
     private float farClip(final Game game) {

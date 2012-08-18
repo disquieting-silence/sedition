@@ -34,7 +34,7 @@ public class DefaultFloor implements Floor {
     }
 
     @Override
-    public void draw(GL10 g) {
+    public void use(GL10 g) {
         Quads.draw(g, delegate, textures[0]);
     }
 

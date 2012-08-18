@@ -12,7 +12,7 @@ public class EagleCamera implements ScaledCamera {
     }
 
     @Override
-    public void position(final GL10 g) {
+    public void use(final GL10 g) {
         g.glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
         g.glTranslatef(0f, -25, 0f);
         g.glScalef(scale, scale, scale);

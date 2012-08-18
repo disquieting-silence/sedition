@@ -19,7 +19,7 @@ public class PlayerCamera implements Camera {
 
 
     @Override
-    public void position(final GL10 g) {
+    public void use(final GL10 g) {
         playerPos(g);
 //        mazePos(g);
     }

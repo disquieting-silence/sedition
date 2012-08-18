@@ -2,10 +2,8 @@ package dsq.sedition.gl;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.opengl.GLU;
 import dsq.sedition.core.Game;
 import dsq.sedition.light.*;
-import dsq.sedition.options.Difficulty;
 import dsq.sedition.options.Options;
 import dsq.sedition.view.*;
 import dsq.sedition.scene.SceneDraw;
@@ -36,6 +34,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     private Light sun;
     private Light headlight;
+    
+    private Jaguar topView = new TopJaguar();
+    private Jaguar groundView = new GroundJaguar();
 
     public GLRenderer(final Context context, final Game game) {
         this.context = context;
@@ -44,13 +45,16 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(final GL10 g) {
-        g.glViewport(0, 0, currentWidth, currentHeight);
-        g.glClearColor(0.3f, 0.3f, 0.3f, 0.3f);
-        g.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-        drawDashboard(g);
-        drawTimer(g);
-        drawMain(g);
-        drawSpeed(g);
+        g.glMatrixMode(GL10.GL_MODELVIEW);
+        g.glLoadIdentity();
+        topView.onDraw(g, currentWidth, currentHeight, game);
+//        g.glViewport(0, 0, currentWidth, currentHeight);
+//        g.glClearColor(0.3f, 0.3f, 0.3f, 0.3f);
+//        g.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+//        drawDashboard(g);
+//        drawTimer(g);
+//        drawMain(g);
+//        drawSpeed(g);
         game.update();
     }
 
@@ -58,7 +62,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         speedView.draw(g, new DefaultColour(1.0f, 0, 0, 1), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                speedSprite.draw(g);
+                speedSprite.use(g);
             }
         });
     }
@@ -67,7 +71,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         dashboardView.draw(g, new DefaultColour(0.3f, 0.3f, 0.3f, 1.0f), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                commandsSprite.draw(g);
+                commandsSprite.use(g);
             }
         });
     }
@@ -81,9 +85,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
             @Override
             public void draw(final GL10 g) {
                 sun.display(g);
-                game.camera().position(g);
+                game.camera().use(g);
                 headlight.display(g);
-                drawScene(g);
+//                drawScene(g);
             }
         });
     }
@@ -92,34 +96,35 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         timerView.draw(g, new DefaultColour(0.1f, 0.1f, 0.1f, 1.0f), new SceneDraw() {
             @Override
             public void draw(final GL10 g) {
-                timeSprite.draw(g);
+                timeSprite.use(g);
             }
         });
     }
 
     private void drawScene(final GL10 g) {
-        floorSprite.draw(g);
+        floorSprite.use(g);
         final List<Sprite> sprites = game.sprites();
         for (Sprite sprite : sprites) {
-            sprite.draw(g);
+            sprite.use(g);
         }
     }
 
     @Override
     public void onSurfaceCreated(final GL10 g, final EGLConfig config) {
 
-        sun = new Sun(g, GL10.GL_LIGHT0);
-        headlight = new Headlight(g, GL10.GL_LIGHT1, new LightPosition(0, 0, 0, LightType.DIRECTIONAL), new LightDirection(0, 0, -1f));
-        floorSprite = new DefaultFloor();
-        timeSprite = new CountdownSprite(game.timer());
-        commandsSprite = new CommandsSprite();
-        speedSprite = new SpeedSprite(game.player());
-
-        // FIX 2/06/12 Make floorSprite a sprite?
-        floorSprite.loadGLTexture(g, this.context);
-        timeSprite.loadGLTexture(g, this.context);
-        commandsSprite.loadGLTexture(g, this.context);
-        speedSprite.loadGLTexture(g, this.context);
+//        sun = new Sun(g, GL10.GL_LIGHT0);
+//        headlight = new Headlight(g, GL10.GL_LIGHT1, new LightPosition(0, 0, 0, LightType.DIRECTIONAL), new LightDirection(0, 0, -1f));
+//        floorSprite = new DefaultFloor();
+//        timeSprite = new CountdownSprite(game.timer());
+//        commandsSprite = new CommandsSprite();
+//        speedSprite = new SpeedSprite(game.player());
+//
+//        // FIX 2/06/12 Make floorSprite a sprite?
+//        floorSprite.loadGLTexture(g, this.context);
+//        timeSprite.loadGLTexture(g, this.context);
+//        commandsSprite.loadGLTexture(g, this.context);
+//        speedSprite.loadGLTexture(g, this.context);
+        topView.onCreate(g, context, game);
         
         // FIX 11/06/12 This is a bit clunky
         final List<Sprite> allSprites = game.allSprites();
@@ -147,27 +152,28 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         currentWidth = width;
         currentHeight = height;
-        int h = height == 0 ? 1 : height;
-
-        g.glViewport(0, 0, width, h);
-        g.glMatrixMode(GL10.GL_PROJECTION);
-        g.glLoadIdentity();
-
-        final float aspect = (float) width / (float) h;
-        GLU.gluPerspective(g, 90f, aspect, 0.1f, farClip());
-
-        g.glMatrixMode(GL10.GL_MODELVIEW);
-        g.glLoadIdentity();
-
-        final int dashboardHeight = (int)(0.15 * currentHeight);
-        final int timerHeight = (int)(0.08 * currentHeight);
-        final int speedHeight = (int)(0.02 * currentHeight);
-
-        final int mainHeight = height - dashboardHeight - timerHeight - speedHeight;
-        dashboardView = new DefaultViewport(0, 0, width, dashboardHeight);
-        speedView = new DefaultViewport(0, dashboardHeight, width, speedHeight);
-        mainView = new DefaultViewport(0, dashboardHeight + speedHeight, width, mainHeight);
-        timerView = new DefaultViewport(0, height - timerHeight, width, timerHeight);
+//        int h = height == 0 ? 1 : height;
+//
+//        g.glViewport(0, 0, width, h);
+//        g.glMatrixMode(GL10.GL_PROJECTION);
+//        g.glLoadIdentity();
+//
+//        final float aspect = (float) width / (float) h;
+//        GLU.gluPerspective(g, 90f, aspect, 0.1f, farClip());
+//
+//        g.glMatrixMode(GL10.GL_MODELVIEW);
+//        g.glLoadIdentity();
+//
+//        final int dashboardHeight = (int)(0.15 * currentHeight);
+//        final int timerHeight = (int)(0.08 * currentHeight);
+//        final int speedHeight = (int)(0.02 * currentHeight);
+//
+//        final int mainHeight = height - dashboardHeight - timerHeight - speedHeight;
+//        dashboardView = new DefaultViewport(0, 0, width, dashboardHeight);
+//        speedView = new DefaultViewport(0, dashboardHeight, width, speedHeight);
+//        mainView = new DefaultViewport(0, dashboardHeight + speedHeight, width, mainHeight);
+//        timerView = new DefaultViewport(0, height - timerHeight, width, timerHeight);
+        topView.onResize(g, currentWidth, currentHeight, game);
     }
 
     private float farClip() {

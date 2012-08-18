@@ -39,7 +39,7 @@ public class PlayerMarker implements Sprite {
     }
 
     @Override
-    public void draw(GL10 g) {
+    public void use(GL10 g) {
         Quads.draw(g, delegates[0], textures[0]);
         Quads.draw(g, delegates[1], textures[0]);
     }

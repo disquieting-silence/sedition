@@ -32,7 +32,7 @@ public class DefaultWall implements Wall {
     }
 
     @Override
-    public void draw(final GL10 g) {
+    public void use(final GL10 g) {
         Quads.draw(g, delegate, textures[0]);
     }
 

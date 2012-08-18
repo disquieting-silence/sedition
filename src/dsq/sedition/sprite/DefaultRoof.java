@@ -36,7 +36,7 @@ public class DefaultRoof implements Roof {
     }
 
     @Override
-    public void draw(final GL10 g) {
+    public void use(final GL10 g) {
         Quads.draw(g, delegate, 0);
     }
 

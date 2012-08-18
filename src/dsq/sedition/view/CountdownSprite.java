@@ -30,7 +30,7 @@ public class CountdownSprite implements Sprite {
     }
 
     @Override
-    public void draw(final GL10 g) {
+    public void use(final GL10 g) {
         final int minutes = timer.getMinutes();
         final int seconds = timer.getSeconds();
 

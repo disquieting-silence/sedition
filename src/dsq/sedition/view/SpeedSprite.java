@@ -23,7 +23,7 @@ public class SpeedSprite implements Sprite {
     }
 
     @Override
-    public void draw(final GL10 g) {
+    public void use(final GL10 g) {
         final int[] tex = new int[NUM_BARS];
         final float percent = player.getSpeed() / Player.MAX_SPEED;
         final int num = (int)(percent * NUM_BARS);

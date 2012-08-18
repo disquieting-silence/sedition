@@ -36,7 +36,7 @@ public class DefaultMarker implements Sprite {
     }
 
     @Override
-    public void draw(GL10 g) {
+    public void use(GL10 g) {
         Quads.draw(g, delegate, 0);
     }
 
