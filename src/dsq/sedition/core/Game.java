@@ -33,4 +33,6 @@ public interface Game {
 
     // FIX 18/08/12 Not particularly happy with this approach.
     void newLevel();
+
+    void init();
 }

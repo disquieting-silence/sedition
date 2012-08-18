@@ -55,17 +55,12 @@ public class GLRenderer implements GLSurfaceView.Renderer, GameViewer {
 
     @Override
     public void onSurfaceCreated(final GL10 g, final EGLConfig config) {
+        sprites.load(g, context);
+        game.init();
+
         sun = new Sun(g, GL10.GL_LIGHT0);
         topView.onCreate(g, context, game);
         groundView.onCreate(g, context, game);
-        
-        sprites.load(g, context);
-//
-//        // FIX 11/06/12 This is a bit clunky
-//        final List<Sprite> allSprites = game.allSprites();
-//        for (Sprite allSprite : allSprites) {
-//            allSprite.loadGLTexture(g, context);
-//        }
 
         g.glEnable(GL10.GL_TEXTURE_2D);
         g.glShadeModel(GL10.GL_SMOOTH);

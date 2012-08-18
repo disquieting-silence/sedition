@@ -29,7 +29,6 @@ public class DefaultGame implements Game {
     public DefaultGame(final LevelGenerator levels, final EventListener events, final Options options) {
         this.levels = levels;
         this.options = options;
-        level = levels.generate(options);
         player = new DefaultPlayer(new Coordinate(0, 0, 0), randomDirection(), events);
         camera = new GameCamera(player);
         clock = new DefaultMutableTimer(events);
@@ -132,6 +131,11 @@ public class DefaultGame implements Game {
         player.setPosition(level.start());
         player.setDirection(randomDirection());
         camera.setScale(EagleCamera.INITIAL_SCALE);
+    }
+
+    @Override
+    public void init() {
+        newLevel();
     }
 
     private long gameTimer() {

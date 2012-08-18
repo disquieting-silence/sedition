@@ -22,14 +22,11 @@ public class TopGameView implements GameView {
     @Override
     public void onTouch(final Game game, final float left, final float top) {
         if (top >= 1.0 - COMMANDS_HEIGHT) {
-            // FIX 18/08/12 Temporary
-            if (left <= 0.5 ) {
+            if (left <= 0.33 ) {
                 game.newLevel();
-            } else {
+            } else if (left >= 0.66) {
                 game.skipToGround();
             }
-
-//
         }
     }
 
@@ -45,7 +42,7 @@ public class TopGameView implements GameView {
                 R.drawable.generate, 
                 R.drawable.black,
                 R.drawable.confirm
-        }, Colours.GREEN, 0.2f, 0.2f);
+        }, Colours.BLUE, 0.0f, 0.0f);
         commands.loadGLTexture(g, context);
     }
 
@@ -66,6 +63,6 @@ public class TopGameView implements GameView {
     private void drawMain(final GL10 g, final Game game, final Box mainBox) {
         final List<GameModel> mainModels = new ArrayList<GameModel>(game.sprites());
         mainModels.add(0, game.camera());
-        views.draw(g, mainBox, mainModels, new DefaultColour(0.5f, 0.5f, 0.5f, 1.0f));
+        views.draw(g, mainBox, mainModels, Colours.BLACK);
     }
 }

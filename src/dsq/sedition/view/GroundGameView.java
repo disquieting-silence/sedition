@@ -60,7 +60,7 @@ public class GroundGameView implements GameView {
         floor = new DefaultFloor();
         timer = new CountdownSprite(game.timer());
 
-        commands = new PanelSprite(new int [] { R.drawable.back, R.drawable.ahead, R.drawable.right}, Colours.GREEN, 0, 0);
+        commands = new PanelSprite(new int [] { R.drawable.back, R.drawable.ahead, R.drawable.right}, Colours.WHITE, 0, 0);
         speedo = new SpeedSprite(game.player());
         headlight = new Headlight(g, GL10.GL_LIGHT1, new LightPosition(0, 0, 0, LightType.DIRECTIONAL), new LightDirection(0, 0, -1f));
         
