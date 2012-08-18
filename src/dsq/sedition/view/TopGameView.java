@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TopGameView implements GameView {
 
-    public static final double COMMANDS_HEIGHT = 0.15;
+    public static final double COMMANDS_HEIGHT = 0.20;
 
     private Sprite commands;
 
@@ -41,7 +41,11 @@ public class TopGameView implements GameView {
 
     @Override
     public void onCreate(final GL10 g, final Context context, final Game game) {
-        commands = new PanelSprite(new int[] { R.drawable.glob }, Colours.RED, 0, 0);
+        commands = new PanelSprite(new int[] { 
+                R.drawable.generate, 
+                R.drawable.black,
+                R.drawable.confirm
+        }, Colours.GREEN, 0.2f, 0.2f);
         commands.loadGLTexture(g, context);
     }
 
@@ -55,7 +59,7 @@ public class TopGameView implements GameView {
         final Box dashBox = new Box(0, 0, width, (int) (COMMANDS_HEIGHT * height));
         final Box mainBox = new Box(0, dashBox.height, width, height - dashBox.height);
 
-        views.draw(g, dashBox, commands, new DefaultColour(0.3f, 0.3f, 0.3f, 1.0f));
+        views.draw(g, dashBox, commands, Colours.BLACK);
         drawMain(g, game, mainBox);
     }
 

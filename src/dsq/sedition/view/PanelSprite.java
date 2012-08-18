@@ -9,6 +9,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class PanelSprite implements Sprite {
     
+    public static final int NO_TEXTURE = -1;
+    
     private final int [] textureRes;
     private final int [] textures;
     private final ViewPanel panel;
@@ -23,7 +25,11 @@ public class PanelSprite implements Sprite {
     public void loadGLTexture(final GL10 g, final Context context) {
         g.glGenTextures(textures.length, textures, 0);
         for (int i = 0; i < textureRes.length; i++) {
-            Textures.load(g, context, textures[i], textureRes[i]);            
+            if (textureRes[i] != NO_TEXTURE) {
+                Textures.load(g, context, textures[i], textureRes[i]);
+            } else {
+                textures[i] = 0;
+            }
         }
     }
 
