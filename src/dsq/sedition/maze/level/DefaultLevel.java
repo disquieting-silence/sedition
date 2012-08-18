@@ -1,9 +1,12 @@
-package dsq.sedition.core;
+package dsq.sedition.maze.level;
 
 import dsq.sedition.collision.Collidable;
 import dsq.sedition.collision.Line2D;
+import dsq.sedition.core.Level;
+import dsq.sedition.core.ViewState;
 import dsq.sedition.scene.Coordinate;
 import dsq.sedition.sprite.*;
+import dsq.sedition.util.Colours;
 import dsq.sedition.util.Roofs;
 import dsq.sedition.util.Walls;
 
@@ -17,6 +20,14 @@ public class DefaultLevel implements Level {
     private final List<Collidable> obstacles;
     private final Coordinate start;
     private final Coordinate finish;
+    private final Sprite startMarker;
+    private final Sprite finishMarker;
+    private final Sprite checkpointMarker;
+    private static final float TOP_MARKER_Y = 10;
+    private static final float PLAYER_MARKER_Y = 0.05f;
+    
+    private final List<Sprite> groundSprites;
+    private final List<Sprite> topSprites;
 
     // FIX 11/06/12 Should floor be here?        
     public DefaultLevel(final Coordinate start, final Coordinate finish, final List<Line2D> lines) {
@@ -26,29 +37,21 @@ public class DefaultLevel implements Level {
         roofs = Roofs.roofs(lines);
         obstacles = new ArrayList<Collidable>();
         obstacles.addAll(walls);
+        startMarker = new PlayerMarker(start, TOP_MARKER_Y, Colours.RED);
+        finishMarker = new PlayerMarker(finish, TOP_MARKER_Y, Colours.GREEN);
+        checkpointMarker = new DefaultMarker(new Coordinate(finish.x, PLAYER_MARKER_Y, finish.z), PLAYER_MARKER_Y, Colours.WHITE);
+        
+        groundSprites = new ArrayList<Sprite>(walls);
+        groundSprites.add(checkpointMarker);
+        
+        topSprites = new ArrayList<Sprite>(roofs);
+        topSprites.add(startMarker);
+        topSprites.add(finishMarker);
     }
 
     @Override
     public List<Sprite> sprites(final ViewState viewState) {
-        return viewState == ViewState.TOP ? topView() : playerView();        
-    }
-
-    // FIX 16/08/12 Clean up.
-    private List<Sprite> playerView() {
-        final List<Sprite> r = new ArrayList<Sprite>(walls);
-        final Colour white = new DefaultColour(1.0f, 1.0f, 1.0f, 1.0f);
-        r.add(new DefaultMarker(new Coordinate(finish.x, 0.05f, finish.z), 0.05f, white));
-        return r;
-    }
-
-    // FIX 16/08/12 Clean up.
-    private List<Sprite> topView() {
-        final List<Sprite> r = new ArrayList<Sprite>(roofs);
-        Sprite marker = new PlayerMarker(start, 10, new DefaultColour(1.0f, 0.0f, 0.0f, 1));
-        r.add(marker);
-        Sprite checkpoint = new PlayerMarker(finish, 10, new DefaultColour(0.0f, 1.0f, 0.0f, 1));
-        r.add(checkpoint);
-        return r;
+        return viewState == ViewState.TOP ? new ArrayList<Sprite>(topSprites) :new ArrayList<Sprite>(groundSprites);
     }
 
     @Override

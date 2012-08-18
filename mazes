@@ -15,3 +15,25 @@ Random seed for regenerating same maze. Integrate with shuffle somehow.
  - arrows left and right and go for eagle view. (icons would be great ....)
 
  - emission REALLY slows it down.
+
+
+
+Still to come:
+ - menu screen
+ - options:
+   - difficulty
+ - switch left and right through mazes and accept early
+ - random orientation
+ - larger mazes (efficiency investigation)
+ - lose on time out
+ - fog effects
+ - highlight left and right and up when pressed
+ - specific levels (rather than random)
+ - specific seed generation
+ - sound
+ - numbers flashing / changing colour near end
+ - instructions / story
+ - slide controls
+ - ORIENTATION BUG!!!!
+ - view heights needs to be percentage-based
+ - perhaps have a landscape-friendly layout
