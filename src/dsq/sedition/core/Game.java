@@ -27,4 +27,5 @@ public interface Game {
     Timer timer();
 
     List<Sprite> allSprites();
+    ViewState currentView();
 }

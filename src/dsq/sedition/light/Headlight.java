@@ -32,7 +32,7 @@ public class Headlight implements Light {
     }
 
     @Override
-    public void display(final GL10 g) {
+    public void use(final GL10 g) {
         g.glEnable(id);
         // FIX 2/06/12 Not sure about ordinal.
         g.glLightfv(id, GL10.GL_POSITION, wrap(new float[]{position.x, position.y, position.z, position.w.ordinal()}));

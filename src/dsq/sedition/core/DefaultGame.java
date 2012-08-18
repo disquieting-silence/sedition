@@ -94,6 +94,11 @@ public class DefaultGame implements Game {
     }
 
     @Override
+    public ViewState currentView() {
+        return viewState;
+    }
+
+    @Override
     public void update() {
         // FIX 11/06/12 A better approach for this dual state would be better. Dare I say fold?
         // FIX 12/08/12 This switches on orientation change. Bug.
@@ -103,7 +108,7 @@ public class DefaultGame implements Game {
             if (newScale < 0.3) {
                 camera.transition();
                 clock.start(85000L);
-                viewState = ViewState.PLAYER;
+                viewState = ViewState.GROUND;
             }
         } else {
             final List<Collidable> obstacles = level.obstacles(viewState);

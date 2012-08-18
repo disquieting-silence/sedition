@@ -17,7 +17,7 @@ public class Sun implements Light {
     }
 
     @Override
-    public void display(final GL10 g) {
+    public void use(final GL10 g) {
         g.glEnable(id);
     }
 

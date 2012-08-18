@@ -1,12 +1,10 @@
 package dsq.sedition.view;
 
 import android.opengl.GLU;
-import dsq.sedition.scene.SceneDraw;
 import dsq.sedition.sprite.Colour;
-import dsq.sedition.sprite.DefaultColour;
-import dsq.sedition.sprite.Sprite;
 
 import javax.microedition.khronos.opengles.GL10;
+import java.util.Arrays;
 import java.util.List;
 
 public class DefaultJaguars implements Jaguars {
@@ -30,6 +28,11 @@ public class DefaultJaguars implements Jaguars {
         for (GameModel model : models) {
             model.use(g);
         }
+    }
+
+    @Override
+    public void draw(final GL10 g, final Box box, final GameModel model, final Colour bg) {
+        draw(g, box, Arrays.asList(model), bg);
     }
 
     public void setBackground(final GL10 g, final Box box, final Colour bg) {
