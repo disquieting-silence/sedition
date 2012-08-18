@@ -57,8 +57,18 @@ public class DefaultPlayer implements MutablePlayer {
         if (collision) {
             events.collision(this);
             speed = 0;
-        }
-        pos = collision ? pos : newPos;
+        }       
+        setPosition(collision ? pos : newPos);
+    }
+
+    @Override
+    public void setPosition(final Coordinate start) {
+        pos = start;
+    }
+
+    @Override
+    public void setDirection(final float degrees) {
+        direction = degrees;
     }
 
     private void updateSpeed() {

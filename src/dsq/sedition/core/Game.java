@@ -31,4 +31,7 @@ public interface Game {
 
     // FIX 18/08/12 Not happy with this mutability either.
     void skipToGround();
+
+    // FIX 18/08/12 Not particularly happy with this approach.
+    void changeLevel(Level level);
 }
