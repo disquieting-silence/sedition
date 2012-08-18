@@ -4,7 +4,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class EagleCamera implements ScaledCamera {
 
-    private float scale = 0.6f;
+    public static final float INITIAL_SCALE = 0.6f;
+    private float scale = INITIAL_SCALE;
     private final Coordinate centre;
     
     public EagleCamera(final Coordinate centre) {

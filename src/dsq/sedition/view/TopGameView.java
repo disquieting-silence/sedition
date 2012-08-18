@@ -20,15 +20,24 @@ public class TopGameView implements GameView {
     private final Views views = new DefaultViews();
 
     @Override
-    public void onCommand(final Game game, final float left, final float top) {
+    public void onTouch(final Game game, final float left, final float top) {
         if (top >= 1.0 - COMMANDS_HEIGHT) {
-            game.skipToGround();
+            // FIX 18/08/12 Temporary
+            if (left <= 0.5 ) {
+                game.newLevel();
+            } else {
+                game.skipToGround();
+            }
+
+//
         }
     }
 
     @Override
-    public void offCommand(final Game game) {
-    }
+    public void offTouch(final Game game) { }
+
+    @Override
+    public void moveTouch(final Game game, final float left, final float top) { }
 
     @Override
     public void onCreate(final GL10 g, final Context context, final Game game) {

@@ -24,9 +24,12 @@ public class GLRenderer implements GLSurfaceView.Renderer, GameViewer {
 
     private final GameView topView = new TopGameView();
     private final GameView groundView = new GroundGameView();
+    private final CoreSprites sprites;
+    
     private GameView current = topView;
 
-    public GLRenderer(final Context context, final Game game) {
+    public GLRenderer(final CoreSprites sprites, final Context context, final Game game) {
+        this.sprites = sprites;
         this.context = context;
         this.game = game;
     }
@@ -56,11 +59,13 @@ public class GLRenderer implements GLSurfaceView.Renderer, GameViewer {
         topView.onCreate(g, context, game);
         groundView.onCreate(g, context, game);
         
-        // FIX 11/06/12 This is a bit clunky
-        final List<Sprite> allSprites = game.allSprites();
-        for (Sprite allSprite : allSprites) {
-            allSprite.loadGLTexture(g, context);
-        }
+        sprites.load(g, context);
+//
+//        // FIX 11/06/12 This is a bit clunky
+//        final List<Sprite> allSprites = game.allSprites();
+//        for (Sprite allSprite : allSprites) {
+//            allSprite.loadGLTexture(g, context);
+//        }
 
         g.glEnable(GL10.GL_TEXTURE_2D);
         g.glShadeModel(GL10.GL_SMOOTH);

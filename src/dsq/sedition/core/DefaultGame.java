@@ -1,13 +1,11 @@
 package dsq.sedition.core;
 
-import android.graphics.drawable.LevelListDrawable;
 import dsq.sedition.collision.Collidable;
 import dsq.sedition.event.EventListener;
+import dsq.sedition.maze.level.LevelGenerator;
 import dsq.sedition.options.Options;
-import dsq.sedition.scene.GameCamera;
-import dsq.sedition.scene.Camera;
+import dsq.sedition.scene.*;
 import dsq.sedition.sprite.Sprite;
-import dsq.sedition.scene.GlimpseCamera;
 import dsq.sedition.timer.DefaultMutableTimer;
 import dsq.sedition.timer.MutableTimer;
 import dsq.sedition.timer.Timer;
@@ -23,28 +21,22 @@ public class DefaultGame implements Game {
     private ViewState viewState = ViewState.TOP;
     private Level level;
     private final MutableTimer clock;
-    private Options options;
+    private final Options options;
+    
+    private final LevelGenerator levels;
 
     // FIX 9/06/12 Clean this up.
-    public DefaultGame(final Level level, final EventListener events) {
-        this.level = level;
-        player = new DefaultPlayer(level.start(), randomDirection(), events);
+    public DefaultGame(final LevelGenerator levels, final EventListener events, final Options options) {
+        this.levels = levels;
+        this.options = options;
+        level = levels.generate(options);
+        player = new DefaultPlayer(new Coordinate(0, 0, 0), randomDirection(), events);
         camera = new GameCamera(player);
         clock = new DefaultMutableTimer(events);
     }
 
     private float randomDirection() {
         return (float)(Math.random() * 360);
-    }
-
-    @Override
-    public void changeLevel(final Level level) {
-        // FIX 18/08/12 Should I check the viewState here?
-        this.level = level;
-        // FIX 18/08/12 Mutating is slightly cleaner than the alternative of watching what has already received a Player.
-        // FIX 18/08/12 I think my divisions are wrong.
-        player.setPosition(level.start());
-        player.setDirection(randomDirection());
     }
 
     @Override
@@ -70,12 +62,6 @@ public class DefaultGame implements Game {
     @Override
     public void holdPace() {
         player.setAcceleration(-0.0001f);
-    }
-
-    // FIX 18/08/12 Don't like this mutability here.
-    @Override
-    public void setOptions(final Options options) {
-        this.options = new Options(options.difficulty);
     }
 
     @Override
@@ -134,6 +120,18 @@ public class DefaultGame implements Game {
         final long amount = gameTimer();
         clock.start(amount);
         viewState = ViewState.GROUND;
+    }
+
+    @Override
+    public void newLevel() {
+        // FIX 18/08/12 Should I check the viewState here?
+        level = levels.generate(options);
+        // FIX 18/08/12 Mutating is slightly cleaner than the alternative of watching what has already received the previous Player.
+        // FIX 18/08/12 There are other options .. syntactically burdensome ... do I want to go down that path?
+        // FIX 18/08/12 I think my divisions are wrong.
+        player.setPosition(level.start());
+        player.setDirection(randomDirection());
+        camera.setScale(EagleCamera.INITIAL_SCALE);
     }
 
     private long gameTimer() {

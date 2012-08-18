@@ -11,11 +11,12 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class DefaultWall implements Wall {
     
-    private final int[] textures = new int[1];
+    private final int texId;
     private final Quad delegate;
     private final Line2D line;
 
-    public DefaultWall(final float x1, final float z1, final float x2, final float z2, final float height) {
+    public DefaultWall(final int texId, final float x1, final float z1, final float x2, final float z2, final float height) {
+        this.texId = texId;
 
         final Coordinate p1 = new Coordinate(x1, 0, z1);
         final Coordinate p2 = new Coordinate(x2, 0, z2);
@@ -33,14 +34,11 @@ public class DefaultWall implements Wall {
 
     @Override
     public void use(final GL10 g) {
-        Quads.draw(g, delegate, textures[0]);
+        Quads.draw(g, delegate, texId);
     }
 
     @Override
-    public void loadGLTexture(final GL10 g, final Context context) {
-        g.glGenTextures(1, textures, 0);
-        Textures.load(g, context, textures[0], R.drawable.glob);
-    }
+    public void loadGLTexture(final GL10 g, final Context context) {  }
 
     @Override
     public Line2D line() {

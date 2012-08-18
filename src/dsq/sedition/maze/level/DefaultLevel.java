@@ -30,11 +30,11 @@ public class DefaultLevel implements Level {
     private final List<Sprite> topSprites;
 
     // FIX 11/06/12 Should floor be here?        
-    public DefaultLevel(final Coordinate start, final Coordinate finish, final List<Line2D> lines) {
+    public DefaultLevel(final CoreSprites sprites, final Coordinate start, final Coordinate finish, final List<Line2D> lines) {
         this.start = start;
         this.finish = finish;
-        walls = Walls.walls(lines);
-        roofs = Roofs.roofs(lines);
+        walls = Walls.walls(sprites, lines);
+        roofs = Roofs.roofs(sprites, lines);
         obstacles = new ArrayList<Collidable>();
         obstacles.addAll(walls);
         startMarker = new PlayerMarker(start, TOP_MARKER_Y, Colours.RED);

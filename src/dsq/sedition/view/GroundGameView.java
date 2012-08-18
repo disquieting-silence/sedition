@@ -29,7 +29,7 @@ public class GroundGameView implements GameView {
     private Light headlight;
     
     @Override
-    public void onCommand(final Game game, final float left, final float top) {
+    public void onTouch(final Game game, final float left, final float top) {
         if (top >= 1.0 - COMMANDS_HEIGHT) {
             if (left < 0.33) {
                 game.turnLeft();
@@ -45,9 +45,14 @@ public class GroundGameView implements GameView {
     }
 
     @Override
-    public void offCommand(final Game game) {
+    public void offTouch(final Game game) {
         game.stopTurning();
         game.slowDown();
+    }
+
+    @Override
+    public void moveTouch(final Game game, float left, float top) {
+        onTouch(game, left, top);
     }
 
     @Override

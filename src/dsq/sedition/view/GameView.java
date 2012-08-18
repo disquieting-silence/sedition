@@ -6,8 +6,9 @@ import dsq.sedition.core.Game;
 import javax.microedition.khronos.opengles.GL10;
 
 public interface GameView {
-    void onCommand(final Game game, float left, float top);
-    void offCommand(final Game game);
+    void onTouch(final Game game, float left, float top);
+    void offTouch(final Game game);
+    void moveTouch(final Game game, float left, float top);
     
     // FIX 18/08/12 Maybe use config later.
     void onCreate(final GL10 g, final Context context, final Game game);

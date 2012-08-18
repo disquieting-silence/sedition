@@ -15,10 +15,8 @@ public class DefaultRoof implements Roof {
     private static final float POS_Y = 5;
     private final Quad delegate;
 
-
-    private int[] textures = new int[1];
-
-    public DefaultRoof(final float x1, final float z1, final float x2, final float z2) {
+    // FIX 18/08/12 Not currently using textures for roof.
+    public DefaultRoof(final int texId, final float x1, final float z1, final float x2, final float z2) {
         final boolean zwall = x1 == x2;
         final Coordinate p1 = zwall ? c(x1 - PAD, z1) : c(x1, z1 - PAD);
         final Coordinate p2 = zwall ? c(x1 + PAD, z1) : c(x1, z1 + PAD);
@@ -41,8 +39,5 @@ public class DefaultRoof implements Roof {
     }
 
     @Override
-    public void loadGLTexture(final GL10 g, final Context context) {
-        g.glGenTextures(1, textures, 0);
-        Textures.load(g, context, textures[0], R.drawable.glob);
-    }
+    public void loadGLTexture(final GL10 g, final Context context) {  }
 }

@@ -13,8 +13,7 @@ public interface Game {
     void speedUp();
     void slowDown();
     void holdPace();
-    
-    void setOptions(final Options options);
+
     Options getOptions();
 
     void update();
@@ -33,5 +32,5 @@ public interface Game {
     void skipToGround();
 
     // FIX 18/08/12 Not particularly happy with this approach.
-    void changeLevel(Level level);
+    void newLevel();
 }
