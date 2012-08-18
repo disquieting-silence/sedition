@@ -4,8 +4,6 @@ import android.content.Context;
 import dsq.sedition.core.Game;
 import dsq.sedition.light.*;
 import dsq.sedition.options.Options;
-import dsq.sedition.scene.SceneDraw;
-import dsq.sedition.sprite.Colour;
 import dsq.sedition.sprite.DefaultColour;
 import dsq.sedition.sprite.DefaultFloor;
 import dsq.sedition.sprite.Sprite;
@@ -16,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroundJaguar implements Jaguar {
-    
+
+    public static final double COMMANDS_HEIGHT = 0.15;
+    public static final double TIMER_HEIGHT = 0.08;
+    public static final double SPEEDO_HEIGHT = 0.02;
     private final Jaguars jags = new DefaultJaguars();
 
     private Sprite floor;
@@ -28,10 +29,24 @@ public class GroundJaguar implements Jaguar {
     
     @Override
     public void onCommand(final Game game, final float left, final float top) {
+        if (top >= 1.0 - COMMANDS_HEIGHT) {
+            if (left < 0.33) {
+                game.turnLeft();
+                game.slowDown();
+            } else if (left > 0.66) {
+                game.turnRight();
+                game.slowDown();
+            } else {
+                game.speedUp();
+                game.stopTurning();
+            }
+        }
     }
 
     @Override
     public void offCommand(final Game game) {
+        game.stopTurning();
+        game.slowDown();
     }
 
     @Override
@@ -57,9 +72,9 @@ public class GroundJaguar implements Jaguar {
     @Override
     public void onDraw(final GL10 g, final int width, final int height, final Game game) {
         // FIX 18/08/12 Perhaps I need to reset the projection here.
-        final int dashboardHeight = (int)(0.15 * height);
-        final int timerHeight = (int)(0.08 * height);
-        final int speedHeight = (int)(0.02 * height);
+        final int dashboardHeight = (int)(COMMANDS_HEIGHT * height);
+        final int timerHeight = (int)(TIMER_HEIGHT * height);
+        final int speedHeight = (int)(SPEEDO_HEIGHT * height);
 
         final int mainHeight = height - dashboardHeight - timerHeight - speedHeight;
 

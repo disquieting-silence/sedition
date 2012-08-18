@@ -3,11 +3,13 @@ package dsq.sedition.ui;
 import android.view.MotionEvent;
 import android.view.View;
 import dsq.sedition.core.Game;
+import dsq.sedition.gl.GameViewer;
+import dsq.sedition.view.Jaguar;
 
 public class DefaultGameUi implements GameUi {
 
     @Override
-    public View.OnTouchListener onTouch(final Game game) {
+    public View.OnTouchListener onTouch(final Game game, final GameViewer viewer) {
         return new View.OnTouchListener() {
             @Override
             // FIX 3/06/12 Magic numbers abound. Sort of viewports.
@@ -16,28 +18,13 @@ public class DefaultGameUi implements GameUi {
                 final boolean up = motionEvent.getAction() == MotionEvent.ACTION_UP;
                 final boolean move = motionEvent.getAction() == MotionEvent.ACTION_MOVE;
 
-                // FIX 18/08/12 This 100 needs to be calculated. It can't just be 100.
-                final boolean onCommand = motionEvent.getY() > (view.getHeight() - 100);
-                final boolean onLeft = motionEvent.getX() < view.getWidth() * 0.33;
-                final boolean onRight = motionEvent.getX() > view.getWidth() * 0.66;
-                
+                final Jaguar gameView = viewer.getView();
                 if (up) {
-                    game.stopTurning();
-                    game.slowDown();
-                } 
-
-                if (onCommand && (down || move)) {
-                    if (onLeft) {
-                        game.turnLeft();
-                        game.slowDown();
-                    } else if (onRight) {
-                        game.turnRight();
-                        game.slowDown();
-                    } else {
-                        game.speedUp();
-                        game.stopTurning();
-                    }
+                    gameView.offCommand(game);
+                } else if (down || move) {
+                    gameView.onCommand(game, motionEvent.getX() / view.getWidth(), motionEvent.getY() / view.getHeight());
                 }
+
                 return true;
             }
         };

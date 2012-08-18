@@ -5,16 +5,14 @@ import android.opengl.GLSurfaceView;
 import dsq.sedition.core.Game;
 import dsq.sedition.core.ViewState;
 import dsq.sedition.light.*;
-import dsq.sedition.options.Options;
 import dsq.sedition.view.*;
-import dsq.sedition.scene.SceneDraw;
 import dsq.sedition.sprite.*;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 import java.util.List;
 
-public class GLRenderer implements GLSurfaceView.Renderer {
+public class GLRenderer implements GLSurfaceView.Renderer, GameViewer {
 
     private final Context context;
     private final Game game;
@@ -86,7 +84,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         current.onResize(g, currentWidth, currentHeight, game);
     }
 
-    private Jaguar getView() {
+    public Jaguar getView() {
         return game.currentView() == ViewState.GROUND ? groundView : topView;
     }
 }

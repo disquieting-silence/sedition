@@ -44,7 +44,7 @@ public class GameScreen extends Activity {
         setFullScreen();
 
         glSurfaceView = new GLSurfaceView(this);
-        glSurfaceView.setOnTouchListener(ui.onTouch(game));
+        glSurfaceView.setOnTouchListener(ui.onTouch(game, renderer));
         glSurfaceView.setRenderer(renderer);
         setContentView(glSurfaceView);
         events.startGame();
