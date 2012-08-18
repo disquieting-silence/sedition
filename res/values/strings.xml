@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sedition</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="game_difficulty">Difficulty: </string>
+    <string name="game_difficulty_hint">Select Difficulty: </string>
+
+    <string-array name="game_difficulty_options">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Extreme</item>
+        <item>Aspirational</item>
+    </string-array>
 </resources>

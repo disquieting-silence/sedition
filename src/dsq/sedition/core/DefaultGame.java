@@ -2,6 +2,7 @@ package dsq.sedition.core;
 
 import dsq.sedition.collision.Collidable;
 import dsq.sedition.event.EventListener;
+import dsq.sedition.options.Options;
 import dsq.sedition.scene.GameCamera;
 import dsq.sedition.scene.Camera;
 import dsq.sedition.sprite.Sprite;
@@ -21,6 +22,7 @@ public class DefaultGame implements Game {
     private ViewState viewState = ViewState.TOP;
     private final Level level;
     private final MutableTimer clock;
+    private Options options;
 
     // FIX 9/06/12 Clean this up.
     public DefaultGame(final Level level, final EventListener events) {
@@ -53,6 +55,17 @@ public class DefaultGame implements Game {
     @Override
     public void holdPace() {
         player.setAcceleration(-0.0001f);
+    }
+
+    // FIX 18/08/12 Don't like this mutability here.
+    @Override
+    public void setOptions(final Options options) {
+        this.options = new Options(options.difficulty);
+    }
+
+    @Override
+    public Options getOptions() {
+        return new Options(options.difficulty);
     }
 
     @Override

@@ -38,3 +38,4 @@ Still to come:
  - view heights needs to be percentage-based
  - perhaps have a landscape-friendly layout
  - difficulty should change far clipping plane .... works a treat.
+ - slide along walls (instead of getting stuck)

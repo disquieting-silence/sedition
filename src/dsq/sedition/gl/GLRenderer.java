@@ -5,6 +5,8 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import dsq.sedition.core.Game;
 import dsq.sedition.light.*;
+import dsq.sedition.options.Difficulty;
+import dsq.sedition.options.Options;
 import dsq.sedition.view.*;
 import dsq.sedition.scene.SceneDraw;
 import dsq.sedition.sprite.*;
@@ -152,7 +154,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         g.glLoadIdentity();
 
         final float aspect = (float) width / (float) h;
-        GLU.gluPerspective(g, 90f, aspect, 0.1f, 100.0f);
+        GLU.gluPerspective(g, 90f, aspect, 0.1f, farClip());
 
         g.glMatrixMode(GL10.GL_MODELVIEW);
         g.glLoadIdentity();
@@ -166,5 +168,17 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         speedView = new DefaultViewport(0, dashboardHeight, width, speedHeight);
         mainView = new DefaultViewport(0, dashboardHeight + speedHeight, width, mainHeight);
         timerView = new DefaultViewport(0, height - timerHeight, width, timerHeight);
+    }
+
+    private float farClip() {
+        final Options options = game.getOptions();
+        switch (options.difficulty) {
+            case EASY: return 100.0f;
+            case MEDIUM: return 20.0f;
+            case HARD: return 10.0f;
+            case EXTREME: return 5.0f;
+            case ASPIRATIONAL: return 1.0f;
+        }
+        return 100.0f;
     }
 }
