@@ -12,20 +12,30 @@ public class DefaultGameUi implements GameUi {
             @Override
             // FIX 3/06/12 Magic numbers abound. Sort of viewports.
             public boolean onTouch(final View view, final MotionEvent motionEvent) {
-                boolean down = motionEvent.getAction() == MotionEvent.ACTION_DOWN;
+                final boolean down = motionEvent.getAction() == MotionEvent.ACTION_DOWN;
                 final boolean up = motionEvent.getAction() == MotionEvent.ACTION_UP;
+                final boolean move = motionEvent.getAction() == MotionEvent.ACTION_MOVE;
+
+                // FIX 18/08/12 This 100 needs to be calculated. It can't just be 100.
+                final boolean onCommand = motionEvent.getY() > (view.getHeight() - 100);
+                final boolean onLeft = motionEvent.getX() < view.getWidth() * 0.33;
+                final boolean onRight = motionEvent.getX() > view.getWidth() * 0.66;
+                
                 if (up) {
                     game.stopTurning();
                     game.slowDown();
-                }
+                } 
 
-                if (motionEvent.getY() > (view.getHeight() - 100)) {
-                    if (motionEvent.getX() < view.getWidth()  * 0.33) {
-                        if (down) game.turnLeft();
-                    } else if (motionEvent.getX() > view.getWidth() * 0.66) {
-                        if (down) game.turnRight();
+                if (onCommand && (down || move)) {
+                    if (onLeft) {
+                        game.turnLeft();
+                        game.slowDown();
+                    } else if (onRight) {
+                        game.turnRight();
+                        game.slowDown();
                     } else {
-                        if (down) game.speedUp();
+                        game.speedUp();
+                        game.stopTurning();
                     }
                 }
                 return true;
