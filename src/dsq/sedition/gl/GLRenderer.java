@@ -144,10 +144,10 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceChanged(final GL10 g, final int width, final int height) {
-        int h = height == 0 ? 1 : height;
 
         currentWidth = width;
         currentHeight = height;
+        int h = height == 0 ? 1 : height;
 
         g.glViewport(0, 0, width, h);
         g.glMatrixMode(GL10.GL_PROJECTION);
