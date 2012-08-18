@@ -1,6 +1,7 @@
 package dsq.sedition.view;
 
 import android.content.Context;
+import dsq.sedition.R;
 import dsq.sedition.core.Game;
 import dsq.sedition.light.*;
 import dsq.sedition.options.Options;
@@ -8,6 +9,7 @@ import dsq.sedition.sprite.DefaultColour;
 import dsq.sedition.sprite.DefaultFloor;
 import dsq.sedition.sprite.Sprite;
 import dsq.sedition.util.Colours;
+import dsq.sedition.util.Textures;
 
 import javax.microedition.khronos.opengles.GL10;
 import java.util.ArrayList;
@@ -53,7 +55,8 @@ public class GroundJaguar implements Jaguar {
     public void onCreate(final GL10 g, final Context context, final Game game) {
         floor = new DefaultFloor();
         timer = new CountdownSprite(game.timer());
-        commands = new CommandsSprite();
+
+        commands = new PanelSprite(new int [] { R.drawable.back, R.drawable.ahead, R.drawable.right}, Colours.GREEN, 0, 0);
         speedo = new SpeedSprite(game.player());
         headlight = new Headlight(g, GL10.GL_LIGHT1, new LightPosition(0, 0, 0, LightType.DIRECTIONAL), new LightDirection(0, 0, -1f));
         

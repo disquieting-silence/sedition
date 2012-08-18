@@ -1,9 +1,11 @@
 package dsq.sedition.view;
 
 import android.content.Context;
+import dsq.sedition.R;
 import dsq.sedition.core.Game;
 import dsq.sedition.sprite.DefaultColour;
 import dsq.sedition.sprite.Sprite;
+import dsq.sedition.util.Colours;
 
 import javax.microedition.khronos.opengles.GL10;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class TopJaguar implements Jaguar {
 
     @Override
     public void onCreate(final GL10 g, final Context context, final Game game) {
-        commands = new CommandsSprite();
+        commands = new PanelSprite(new int[] { R.drawable.glob }, Colours.RED, 0, 0);
         commands.loadGLTexture(g, context);
     }
 
