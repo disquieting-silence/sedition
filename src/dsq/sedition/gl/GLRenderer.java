@@ -24,8 +24,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     
     private Light sun;
 
-    private Jaguar topView = new TopJaguar();
-    private Jaguar groundView = new GroundJaguar();
+    private final Jaguar topView = new TopJaguar();
+    private final Jaguar groundView = new GroundJaguar();
+    private Jaguar current = topView;
 
     public GLRenderer(final Context context, final Game game) {
         this.context = context;
@@ -38,7 +39,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         g.glMatrixMode(GL10.GL_MODELVIEW);
         g.glLoadIdentity();
         sun.use(g);
-        final Jaguar current = getView();
+        final Jaguar newCurrent = getView();
+        if (current != newCurrent) newCurrent.onResize(g, currentWidth, currentHeight, game);
+        current = newCurrent;
         current.onDraw(g, currentWidth, currentHeight, game);
         game.update();
     }
@@ -79,7 +82,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(final GL10 g, final int width, final int height) {
         currentWidth = width;
         currentHeight = height;
-        final Jaguar current = getView();
+        current = getView();
         current.onResize(g, currentWidth, currentHeight, game);
     }
 

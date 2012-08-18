@@ -49,7 +49,7 @@ public class DefaultGame implements Game {
 
     @Override
     public void slowDown() {
-        player.setAcceleration(-0.002f);
+        player.setAcceleration(-0.0005f);
     }
 
     @Override

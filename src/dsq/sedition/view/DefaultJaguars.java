@@ -13,7 +13,7 @@ public class DefaultJaguars implements Jaguars {
     public void projection(final GL10 g, final int width, final int height, final float farClip) {
         int h = height == 0 ? 1 : height;
 
-        g.glViewport(0, 0, width, h);
+//        g.glViewport(0, 0, width, h);
         g.glMatrixMode(GL10.GL_PROJECTION);
         g.glLoadIdentity();
 

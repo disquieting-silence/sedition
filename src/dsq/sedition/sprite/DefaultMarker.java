@@ -9,7 +9,7 @@ import dsq.sedition.util.Textures;
 import javax.microedition.khronos.opengles.GL10;
 
 public class DefaultMarker implements Sprite {
-    private static final float SIZE = 1;
+    private static final float SIZE = 0.5f;
     private static final float PAD = 0;
 
     private final float y;
@@ -20,15 +20,13 @@ public class DefaultMarker implements Sprite {
 
         float z1 = pos.z - SIZE/2;
         float z2 = pos.z + SIZE/2;
-        float x1 = pos.x - SIZE/2 - PAD;
-        float x2 = pos.x - SIZE/2 + PAD;
-        float x3 = pos.x + SIZE/2 - PAD;
-        float x4 = pos.x + SIZE/2 + PAD;
+        float x1 = pos.x - SIZE/2;
+        float x2 = pos.x + SIZE/2;
 
         this.y = y;
 
         final Material material = new AmbDiffMaterial(colour);
-        delegate = new DefaultQuad(c(x1, z1), c(x4, z1), c(x4, z2), c(x1, z2), material, colour);
+        delegate = new DefaultQuad(c(x1, z1), c(x2, z1), c(x2, z2), c(x1, z2), material, colour);
     }
 
     private Coordinate c(final float x, final float z) {
