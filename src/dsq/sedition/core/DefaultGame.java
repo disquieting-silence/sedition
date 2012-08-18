@@ -106,15 +106,21 @@ public class DefaultGame implements Game {
             final float newScale = camera.getScale() - ZOOM_OUT_RATE;
             camera.setScale(newScale);
             if (newScale < 0.3) {
-                camera.transition();
-                clock.start(85000L);
-                viewState = ViewState.GROUND;
+                skipToGround();
             }
         } else {
             final List<Collidable> obstacles = level.obstacles(viewState);
             clock.update();
             player.update(obstacles);
         }
+    }
+
+    // FIX 18/08/12 Not happy with this mutability either.
+    @Override
+    public void skipToGround() {
+        camera.transition();
+        clock.start(85000L);
+        viewState = ViewState.GROUND;
     }
 
     @Override

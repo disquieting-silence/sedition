@@ -4,7 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import dsq.sedition.core.Game;
 import dsq.sedition.gl.GameViewer;
-import dsq.sedition.view.Jaguar;
+import dsq.sedition.view.GameView;
 
 public class DefaultGameUi implements GameUi {
 
@@ -18,7 +18,7 @@ public class DefaultGameUi implements GameUi {
                 final boolean up = motionEvent.getAction() == MotionEvent.ACTION_UP;
                 final boolean move = motionEvent.getAction() == MotionEvent.ACTION_MOVE;
 
-                final Jaguar gameView = viewer.getView();
+                final GameView gameView = viewer.getView();
                 if (up) {
                     gameView.offCommand(game);
                 } else if (down || move) {

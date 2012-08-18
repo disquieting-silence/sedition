@@ -9,18 +9,17 @@ import dsq.sedition.sprite.DefaultColour;
 import dsq.sedition.sprite.DefaultFloor;
 import dsq.sedition.sprite.Sprite;
 import dsq.sedition.util.Colours;
-import dsq.sedition.util.Textures;
 
 import javax.microedition.khronos.opengles.GL10;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroundJaguar implements Jaguar {
+public class GroundGameView implements GameView {
 
     public static final double COMMANDS_HEIGHT = 0.15;
     public static final double TIMER_HEIGHT = 0.08;
     public static final double SPEEDO_HEIGHT = 0.02;
-    private final Jaguars jags = new DefaultJaguars();
+    private final Views views = new DefaultViews();
 
     private Sprite floor;
     private Sprite timer;
@@ -69,7 +68,7 @@ public class GroundJaguar implements Jaguar {
     @Override
     public void onResize(final GL10 g, final int width, final int height, final Game game) {
         final float clip = farClip(game);
-        jags.projection(g, width, height, clip);
+        views.projection(g, width, height, clip);
     }
 
     @Override
@@ -86,9 +85,9 @@ public class GroundJaguar implements Jaguar {
         final Box mainBox = new Box(0, dashboardHeight + speedHeight, width, mainHeight);
         final Box timerBox = new Box(0, height - timerHeight, width, timerHeight);
 
-        jags.draw(g, timerBox, timer, new DefaultColour(0.1f, 0.1f, 0.1f, 1.0f));
-        jags.draw(g, dashBox, commands, new DefaultColour(0.3f, 0.3f, 0.3f, 1.0f));
-        jags.draw(g, speedBox, speedo, new DefaultColour(1.0f, 0f, 0f, 1.0f));
+        views.draw(g, timerBox, timer, new DefaultColour(0.1f, 0.1f, 0.1f, 1.0f));
+        views.draw(g, dashBox, commands, new DefaultColour(0.3f, 0.3f, 0.3f, 1.0f));
+        views.draw(g, speedBox, speedo, new DefaultColour(1.0f, 0f, 0f, 1.0f));
 
         drawMain(g, game, mainBox);
     }
@@ -98,7 +97,7 @@ public class GroundJaguar implements Jaguar {
         mainModels.add(0, floor);
 //        mainModels.add(0, headlight);
         mainModels.add(0, game.camera());
-        jags.draw(g, mainBox, mainModels, Colours.BLACK);
+        views.draw(g, mainBox, mainModels, Colours.BLACK);
     }
 
     private float farClip(final Game game) {

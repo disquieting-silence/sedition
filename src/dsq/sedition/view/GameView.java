@@ -5,7 +5,7 @@ import dsq.sedition.core.Game;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public interface Jaguar {
+public interface GameView {
     void onCommand(final Game game, float left, float top);
     void offCommand(final Game game);
     

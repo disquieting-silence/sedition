@@ -28,4 +28,7 @@ public interface Game {
 
     List<Sprite> allSprites();
     ViewState currentView();
+
+    // FIX 18/08/12 Not happy with this mutability either.
+    void skipToGround();
 }

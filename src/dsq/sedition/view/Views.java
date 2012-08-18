@@ -5,7 +5,7 @@ import dsq.sedition.sprite.Colour;
 import javax.microedition.khronos.opengles.GL10;
 import java.util.List;
 
-public interface Jaguars {
+public interface Views {
     void projection(GL10 g, int width, int height, float farClip);
     
     void draw(GL10 g, Box box, List<? extends GameModel> models, final Colour bg);

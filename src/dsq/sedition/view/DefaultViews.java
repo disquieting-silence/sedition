@@ -7,7 +7,7 @@ import javax.microedition.khronos.opengles.GL10;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultJaguars implements Jaguars {
+public class DefaultViews implements Views {
 
     @Override
     public void projection(final GL10 g, final int width, final int height, final float farClip) {

@@ -1,7 +1,7 @@
 package dsq.sedition.gl;
 
-import dsq.sedition.view.Jaguar;
+import dsq.sedition.view.GameView;
 
 public interface GameViewer {
-    Jaguar getView();
+    GameView getView();
 }
