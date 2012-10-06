@@ -39,7 +39,7 @@ public class DefaultLevel implements Level {
         obstacles.addAll(walls);
         startMarker = new PlayerMarker(start, TOP_MARKER_Y, Colours.RED);
         finishMarker = new PlayerMarker(finish, TOP_MARKER_Y, Colours.GREEN);
-        checkpointMarker = new DefaultMarker(new Coordinate(finish.x, PLAYER_MARKER_Y, finish.z), PLAYER_MARKER_Y, Colours.WHITE);
+        checkpointMarker = new DefaultMarker(new Coordinate(finish.x, PLAYER_MARKER_Y, finish.z), PLAYER_MARKER_Y, Colours.GREEN);
         
         groundSprites = new ArrayList<Sprite>(walls);
         groundSprites.add(checkpointMarker);

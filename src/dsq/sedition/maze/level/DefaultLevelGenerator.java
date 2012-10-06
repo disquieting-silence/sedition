@@ -44,7 +44,7 @@ public class DefaultLevelGenerator implements LevelGenerator {
         switch (options.difficulty) {
             case EASY: return 4;
         }
-        return 2;
+        return 4;
     }
 
     private static Coordinate coord(final Spot spot, final int width, final int height, final float margin) {
